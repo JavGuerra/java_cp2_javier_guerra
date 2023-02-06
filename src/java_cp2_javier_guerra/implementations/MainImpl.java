@@ -10,7 +10,6 @@ import java.util.Optional;
 
 import static java_cp2_javier_guerra.enums.BankAccountType.getBankAccountTypeList;
 import static java_cp2_javier_guerra.util.ConsoleInput.*;
-import static java_cp2_javier_guerra.util.MainInput.*;
 
 public abstract class MainImpl {
 
@@ -20,27 +19,26 @@ public abstract class MainImpl {
         title("Listar todas las cuentas");
 
         List<BankAccount> accounts = accountService.findAll();
-        if (accounts.isEmpty()) System.out.println("No se han encontrado cuentas bancarias.");
-        else {
+        if (!accounts.isEmpty()) {
             for (BankAccount account : accounts) System.out.println(account);
             System.out.println("Total: " + accounts.size() + (accounts.size() > 1 ? " cuentas." : " cuenta."));
-        }
+        } else System.out.println("No se han encontrado cuentas bancarias.");
     }
 
 
     public static void showAccountById() {
         title("Buscar una cuenta por su id");
 
-        Optional<BankAccount> account = Optional.ofNullable(getAccountById("Introduzca el ID de la cuenta: ", accountService));
+        Long id = getLongIntPos("Introduzca el ID de la cuenta: ");
+        Optional<BankAccount> account = accountService.findById(id);
         System.out.println(account.isPresent() ? account.get() : "No se ha encontrado la cuenta.");
     }
 
-    // TODO introducir cambios en la estructura de la clase BankAccount
     public static void showAccountByUserNIF() {
         title("Buscar una cuenta por el NIF del usuario");
 
         String nif = getWord("Introduzca el NIF del usuario: ");
-        Optional<BankAccount> account = Optional.ofNullable(accountService.findByNif(nif));
+        Optional<BankAccount> account = accountService.findByNif(nif);
         System.out.println(account.isPresent() ? account.get() : "No se ha encontrado la cuenta.");
     }
 
@@ -51,11 +49,10 @@ public abstract class MainImpl {
         String msg = "Elija tipo:" + getBankAccountTypeList() + ": ";
         byte pos = getLongIntPosByRange(msg, 1L, (long) BankAccountType.values().length).byteValue();
         List<BankAccount> accounts = accountService.findAllByType(pos);
-        if (accounts.isEmpty()) System.out.println("No hay cuentas de ese tipo.");
-        else {
+        if (!accounts.isEmpty()) {
             for (BankAccount account : accounts) System.out.println(account);
             System.out.println("Total: " + accounts.size() + (accounts.size() > 1 ? " cuentas." : " cuenta."));
-        }
+        } else System.out.println("No hay cuentas de ese tipo.");
     }
 
 
@@ -83,14 +80,16 @@ public abstract class MainImpl {
     public static void increaseAccountBalanceById() {
         title("Incrementar el saldo de una cuenta por su id");
 
-        Optional<BankAccount> account = Optional.ofNullable(getAccountById("Introduzca el ID de la cuenta: ", accountService));
-        if (account.isPresent()) {
-            System.out.println("Saldo actual: " + account.get().getAmount());
+        Long id = getLongIntPos("Introduzca el ID de la cuenta: ");
+        Optional<BankAccount> optAccount = accountService.findById(id);
+        if (optAccount.isPresent()) {
+            BankAccount account = optAccount.get();
+            System.out.println("Saldo actual: " + account.getAmount());
 
             double amount = getLongIntPos("Introduzca la cantidad a ingresar: ").doubleValue();
             if (amount > 0)
-                System.out.println(accountService.incrementAmount(account.get().getId(), amount)
-                        ? "Nuevo saldo: " + account.get().getAmount()
+                System.out.println(accountService.incrementAmount(id, amount)
+                        ? "Nuevo saldo: " + account.getAmount()
                         : "No ha sido posible ingresar la cantidad." );
             else System.out.println("Nada que ingresar.");
 
@@ -100,14 +99,16 @@ public abstract class MainImpl {
     public static void decrementAccountBalanceById() {
         title("Retirar del saldo de una cuenta por su id");
 
-        Optional<BankAccount> account = Optional.ofNullable(getAccountById("Introduzca el ID de la cuenta: ", accountService));
-        if (account.isPresent()) {
-            System.out.println("Saldo actual: " + account.get().getAmount());
+        Long id = getLongIntPos("Introduzca el ID de la cuenta: ");
+        Optional<BankAccount> optAccount = accountService.findById(id);
+        if (optAccount.isPresent()) {
+            BankAccount account = optAccount.get();
+            System.out.println("Saldo actual: " + account.getAmount());
 
             double amount = getLongIntPos("Introduzca la cantidad a retirar: ").doubleValue();
             if (amount > 0)
-                System.out.println(accountService.decrementAmount(account.get().getId(), amount)
-                        ? "Nuevo saldo: " + account.get().getAmount()
+                System.out.println(accountService.decrementAmount(id, amount)
+                        ? "Nuevo saldo: " + account.getAmount()
                         : "La cuenta no tiene saldo suficiente.");
             else System.out.println("Nada que retirar.");
 
@@ -123,8 +124,10 @@ public abstract class MainImpl {
     public static void deleteAccountById() {
         title("Borrar una cuenta por su id");
 
-        Long id = checkId("Introduzca el ID de la cuenta: ", accountService);
-        if (id > 0) {
+        Long id = getLongIntPos("Introduzca el ID de la cuenta: ");
+        Optional<BankAccount> optAccount = accountService.findById(id);
+        if (optAccount.isPresent()) {
+            BankAccount account = optAccount.get();
 
             if (getYesNo("¿Desea confirmar el borrado? (S/N): "))
                 System.out.println(accountService.deleteAccount(id)
@@ -138,30 +141,30 @@ public abstract class MainImpl {
     public static void transferBalanceFromAccountToAnotherById() {
         title("Transferir saldo de una cuenta a otra por sus id");
 
-        Optional<BankAccount> optAccount1 = Optional.ofNullable(
-                getAccountById("Introduzca el ID de la cuenta de origen: ", accountService));
+        Long id1 = getLongIntPos("Introduzca el ID de la cuenta de origen: ");
+        Optional<BankAccount> optAccount1 = accountService.findById(id1);
         if (optAccount1.isPresent()) {
             BankAccount account1 = optAccount1.get();
             System.out.println("Saldo en origen: " + account1.getAmount());
 
-            Optional<BankAccount> optAccount2 = Optional.ofNullable(
-                    getAccountById("Introduzca el ID de la cuenta de destino: ", accountService));
-            if (optAccount2.isPresent()) {
-                BankAccount account2 = optAccount2.get();
-                System.out.println("Saldo en destino: " + account2.getAmount());
+            double amount = getLongIntPos("Introduzca la cantidad a transferir : ").doubleValue();
+            if (amount > 0) {
 
-                double amount = getLongIntPos("Introduzca la cantidad a transferir : ").doubleValue();
-                if (amount > 0) {
+                Long id2 = getLongIntPos("Introduzca el ID de la cuenta de destino: ");
+                Optional<BankAccount> optAccount2 = accountService.findById(id2);
+                if (optAccount2.isPresent()) {
+                    BankAccount account2 = optAccount2.get();
+                    System.out.println("Saldo en destino: " + account2.getAmount());
 
-                    if (accountService.transferAmount(account1.getId(), account2.getId(), amount)) {
+                    if (accountService.transferAmount(id1, id2, amount)) {
                         System.out.println("La transferencia se ha realizado correctamente.");
                         System.out.println("Saldo actual en origen: " + account1.getAmount());
                         System.out.println("Saldo actual en destino: " + account2.getAmount());
                     } else System.out.println("No ha sido posible realizar la transferencia.");
 
-                } else System.out.println("Nada que transferir.");
+                } else System.out.println("No se ha encontrado la cuenta de destino.");
 
-            } else System.out.println("No se ha encontrado la cuenta de destino.");
+            } else System.out.println("Nada que transferir.");
 
         } else System.out.println("No se ha encontrado la cuenta de origen.");
     }

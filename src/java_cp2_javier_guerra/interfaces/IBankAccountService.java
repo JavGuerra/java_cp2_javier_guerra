@@ -4,6 +4,7 @@ import java_cp2_javier_guerra.entities.BankAccount;
 import java_cp2_javier_guerra.enums.BankAccountType;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Tipo ABSTRACTO
@@ -21,12 +22,13 @@ public interface IBankAccountService {
 
     /**
      * Recupera una cuenta bancaria por su id
+     *
      * @param id identificador de la cuenta bancaria
      * @return la cuenta bancaria
      */
-    BankAccount findById(Long id);
+    Optional<BankAccount> findById(Long id);
 
-    BankAccount findByNif(String nif);
+    Optional<BankAccount> findByNif(String nif);
 
     List<BankAccount> findAllByType(byte numType);
 

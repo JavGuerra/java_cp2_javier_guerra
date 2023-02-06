@@ -40,6 +40,10 @@ public enum BankAccountType {
         this.reward = reward;
     }
 
+    /**
+     * Devuelve una lista numerada de los tipos de cuenta disponibles
+     * @return Lista numera de tipos de cuenta
+     */
     public static String getBankAccountTypeList() {
         StringBuilder str = new StringBuilder();
         for (BankAccountType type : BankAccountType.values())

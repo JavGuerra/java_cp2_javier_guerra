@@ -20,7 +20,7 @@ public abstract class MainImpl {
 
         List<BankAccount> accounts = accountService.findAll();
         if (!accounts.isEmpty()) {
-            for (BankAccount account : accounts) System.out.println(account);
+            accounts.forEach(System.out::println);
             System.out.println("Total: " + accounts.size() + (accounts.size() > 1 ? " cuentas." : " cuenta."));
         } else System.out.println("No se han encontrado cuentas bancarias.");
     }
@@ -50,7 +50,7 @@ public abstract class MainImpl {
         byte pos = getLongIntPosByRange(msg, 1L, (long) BankAccountType.values().length).byteValue();
         List<BankAccount> accounts = accountService.findAllByType(pos);
         if (!accounts.isEmpty()) {
-            for (BankAccount account : accounts) System.out.println(account);
+            accounts.forEach(System.out::println);
             System.out.println("Total: " + accounts.size() + (accounts.size() > 1 ? " cuentas." : " cuenta."));
         } else System.out.println("No hay cuentas de ese tipo.");
     }
@@ -125,9 +125,7 @@ public abstract class MainImpl {
         title("Borrar una cuenta por su id");
 
         Long id = getLongIntPos("Introduzca el ID de la cuenta: ");
-        Optional<BankAccount> optAccount = accountService.findById(id);
-        if (optAccount.isPresent()) {
-            BankAccount account = optAccount.get();
+        if (accountService.accountExist(id)) {
 
             if (getYesNo("¿Desea confirmar el borrado? (S/N): "))
                 System.out.println(accountService.deleteAccount(id)

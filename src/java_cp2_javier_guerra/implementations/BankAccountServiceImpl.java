@@ -9,10 +9,16 @@ import java.util.*;
 public class BankAccountServiceImpl implements IBankAccountService {
 
     private final Map<Long, BankAccount> accounts = new HashMap<>();
-    // private final Set<BankAccount> accounts = new HashSet<>();
 
-    public Optional<BankAccount> addAccount(BankAccount account) {
-        return Optional.ofNullable(accounts.put(account.getId(), account));
+    @Override
+    public boolean accountExist(Long id) {
+        return accounts.containsKey(id);
+    }
+
+    @Override
+    public void addAccount(BankAccount account) {
+        // TODO comprobar que se guarda
+        accounts.put(account.getId(), account);
     }
 
     @Override
@@ -33,6 +39,7 @@ public class BankAccountServiceImpl implements IBankAccountService {
         return Optional.empty();
     }
 
+    @Override
     public List<BankAccount> findAllByType(byte numType) {
         List<BankAccount> listAccounts =  new ArrayList<>();
         if (numType >= 1 && numType <= BankAccountType.values().length) {

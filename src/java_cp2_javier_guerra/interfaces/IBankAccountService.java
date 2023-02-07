@@ -13,6 +13,9 @@ import java.util.Optional;
 
 public interface IBankAccountService {
 
+    boolean accountExist(Long id);
+
+    void addAccount(BankAccount account);
 
     /**
      * Recupera todas las cuentas bancarias de base de datos

@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
-public class Bank {
+public final class Bank {
 
     private Long id;
     private String name;

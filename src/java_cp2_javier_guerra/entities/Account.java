@@ -17,6 +17,7 @@ public class Account {
     private Long idCustomer;
     private Long idCreationEmployee;
     private LocalDateTime creationDate = null;
+    private LocalDateTime inactiveDate = null;
     private boolean active = true;
 
     public Account() {}
@@ -93,6 +94,14 @@ public class Account {
 
     public void setCreationDate(LocalDateTime creation) {
         this.creationDate = creation;
+    }
+
+    public LocalDateTime getInactiveDate() {
+        return inactiveDate;
+    }
+
+    public void setInactiveDate(LocalDateTime inactiveDate) {
+        this.inactiveDate = inactiveDate;
     }
 
     public boolean isActive() {

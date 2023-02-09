@@ -13,6 +13,12 @@ public class Bank {
 
     public Bank() {}
 
+    public Bank(Long id, String name, String nif) {
+        setId(id);
+        setName(name);
+        setNif(nif);
+    }
+
     public Bank(Long id, String name, String nif, Map<String, Object> services) {
         setId(id);
         setName(name);

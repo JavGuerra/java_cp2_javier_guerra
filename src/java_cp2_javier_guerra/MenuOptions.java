@@ -1,8 +1,6 @@
 package java_cp2_javier_guerra;
 
-import java_cp2_javier_guerra.entities.Account;
-import java_cp2_javier_guerra.entities.Customer;
-import java_cp2_javier_guerra.entities.BankAccountType;
+import java_cp2_javier_guerra.entities.*;
 import java_cp2_javier_guerra.services.*;
 
 import java.util.List;
@@ -14,11 +12,12 @@ import static java_cp2_javier_guerra.utils.ConsoleInput.*;
 
 public abstract class MenuOptions {
 
-    private static final IAccountService accountService = (IAccountService) exampleBank().getService("accountService");
-    private static final ICustomerService customerService = (ICustomerService) exampleBank().getService("customerService");
-    private static final IEmployeeService employeeService = (IEmployeeService) exampleBank().getService("employeeService");
-    private static final IAddressService addressService = (IAddressService) exampleBank().getService("addressService");
+    private static final Bank bank = exampleBank(true);
 
+    private static final IAccountService accountService = (IAccountService) bank.getService("accountService");
+    private static final ICustomerService customerService = (ICustomerService) bank.getService("customerService");
+    private static final IEmployeeService employeeService = (IEmployeeService) bank.getService("employeeService");
+    private static final IAddressService addressService = (IAddressService) bank.getService("addressService");
 
     /**
      *
@@ -32,7 +31,6 @@ public abstract class MenuOptions {
             System.out.println("Total: " + accounts.size() + (accounts.size() > 1 ? " cuentas." : " cuenta."));
         } else System.out.println("No se han encontrado cuentas bancarias.");
     }
-
 
     /**
      *

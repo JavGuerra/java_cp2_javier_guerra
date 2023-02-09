@@ -1,8 +1,7 @@
 package java_cp2_javier_guerra;
 
 import java_cp2_javier_guerra.entities.*;
-import java_cp2_javier_guerra.enums.*;
-import java_cp2_javier_guerra.implementations.*;
+import java_cp2_javier_guerra.services.*;
 
 import java.util.HashMap;
 import java.util.HashSet;

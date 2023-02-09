@@ -1,4 +1,4 @@
-package java_cp2_javier_guerra.interfaces;
+package java_cp2_javier_guerra.services;
 
 import java_cp2_javier_guerra.entities.Address;
 

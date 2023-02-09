@@ -2,16 +2,15 @@ package java_cp2_javier_guerra;
 
 import java_cp2_javier_guerra.entities.Account;
 import java_cp2_javier_guerra.entities.Customer;
-import java_cp2_javier_guerra.enums.BankAccountType;
-import java_cp2_javier_guerra.interfaces.*;
+import java_cp2_javier_guerra.entities.BankAccountType;
+import java_cp2_javier_guerra.services.*;
 
 import java.util.List;
 import java.util.Optional;
 
 import static java_cp2_javier_guerra.ExampleData.exampleBank;
-import static java_cp2_javier_guerra.enums.BankAccountType.getBankAccountTypeList;
+import static java_cp2_javier_guerra.entities.BankAccountType.getBankAccountTypeList;
 import static java_cp2_javier_guerra.utils.ConsoleInput.*;
-
 
 public abstract class MenuOptions {
 

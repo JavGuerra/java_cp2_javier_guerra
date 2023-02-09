@@ -1,7 +1,7 @@
-package java_cp2_javier_guerra.implementations;
+package java_cp2_javier_guerra.services;
 
 import java_cp2_javier_guerra.entities.Address;
-import java_cp2_javier_guerra.interfaces.IAddressService;
+import java_cp2_javier_guerra.services.IAddressService;
 
 import java.util.ArrayList;
 import java.util.HashMap;

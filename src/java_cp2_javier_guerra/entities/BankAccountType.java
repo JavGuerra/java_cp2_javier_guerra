@@ -1,4 +1,4 @@
-package java_cp2_javier_guerra.enums;
+package java_cp2_javier_guerra.entities;
 
 public enum BankAccountType {
 

@@ -1,8 +1,5 @@
 package java_cp2_javier_guerra.entities;
 
-import java_cp2_javier_guerra.enums.BankAccountType;
-import java_cp2_javier_guerra.enums.CurrencyType;
-
 import java.time.LocalDateTime;
 import java.util.Set;
 import java.util.HashSet;

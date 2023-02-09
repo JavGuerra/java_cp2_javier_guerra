@@ -1,7 +1,7 @@
-package java_cp2_javier_guerra.implementations;
+package java_cp2_javier_guerra.services;
 
 import java_cp2_javier_guerra.entities.Customer;
-import java_cp2_javier_guerra.interfaces.ICustomerService;
+import java_cp2_javier_guerra.services.ICustomerService;
 
 import java.util.*;
 

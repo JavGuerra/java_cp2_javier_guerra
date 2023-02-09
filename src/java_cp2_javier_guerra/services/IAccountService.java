@@ -1,7 +1,7 @@
-package java_cp2_javier_guerra.interfaces;
+package java_cp2_javier_guerra.services;
 
 import java_cp2_javier_guerra.entities.Account;
-import java_cp2_javier_guerra.enums.BankAccountType;
+import java_cp2_javier_guerra.entities.BankAccountType;
 
 import java.util.List;
 import java.util.Optional;

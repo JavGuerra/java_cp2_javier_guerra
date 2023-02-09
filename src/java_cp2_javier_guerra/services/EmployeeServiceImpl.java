@@ -1,7 +1,7 @@
-package java_cp2_javier_guerra.implementations;
+package java_cp2_javier_guerra.services;
 
 import java_cp2_javier_guerra.entities.Employee;
-import java_cp2_javier_guerra.interfaces.IEmployeeService;
+import java_cp2_javier_guerra.services.IEmployeeService;
 
 import java.util.ArrayList;
 import java.util.HashMap;

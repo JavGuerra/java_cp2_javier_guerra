@@ -1,4 +1,4 @@
-package java_cp2_javier_guerra.util;
+package java_cp2_javier_guerra.utils;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;

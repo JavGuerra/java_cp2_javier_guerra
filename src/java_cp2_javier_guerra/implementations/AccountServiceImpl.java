@@ -1,14 +1,14 @@
 package java_cp2_javier_guerra.implementations;
 
-import java_cp2_javier_guerra.entities.BankAccount;
+import java_cp2_javier_guerra.entities.Account;
 import java_cp2_javier_guerra.enums.BankAccountType;
-import java_cp2_javier_guerra.interfaces.IBankAccountService;
+import java_cp2_javier_guerra.interfaces.IAccountService;
 
 import java.util.*;
 
-public class BankAccountServiceImpl implements IBankAccountService {
+public class AccountServiceImpl implements IAccountService {
 
-    private final Map<Long, BankAccount> accounts = new HashMap<>();
+    private final Map<Long, Account> accounts = new HashMap<>();
 
     @Override
     public boolean accountExist(Long id) {
@@ -16,57 +16,58 @@ public class BankAccountServiceImpl implements IBankAccountService {
     }
 
     @Override
-    public void addAccount(BankAccount account) {
+    public void addAccount(Account account) {
         // TODO comprobar que se guarda
         accounts.put(account.getId(), account);
     }
 
     @Override
-    public List<BankAccount> findAll() {
+    public List<Account> getAllAccounts() {
         return new ArrayList<>(accounts.values());
     }
 
     @Override
-    public Optional<BankAccount> findById(Long id) {
+    public Optional<Account> findAccountById(Long id) {
         return Optional.ofNullable(accounts.get(id));
     }
 
     @Override
-    public Optional<BankAccount> findByNif(String nif) {
-        if (nif != null && !nif.equals(""))
-            for (BankAccount account : accounts.values())
-                if (nif.equals(account.getUserNif())) return Optional.of(account);
+    public Optional<Account> findAccountByCustomerId(Long id) {
+        if (id > 0) {
+            for (Account account : accounts.values())
+                if (account.getIdCustomer().equals(id)) return Optional.of(account);
+        }
         return Optional.empty();
     }
 
     @Override
-    public List<BankAccount> findAllByType(byte numType) {
-        List<BankAccount> listAccounts =  new ArrayList<>();
+    public List<Account> findAllAccountsByType(byte numType) {
+        List<Account> listAccounts =  new ArrayList<>();
         if (numType >= 1 && numType <= BankAccountType.values().length) {
             BankAccountType type = BankAccountType.values()[--numType];
-            for (BankAccount account : accounts.values())
+            for (Account account : accounts.values())
                 if (account.getType() == type) listAccounts.add(account);
         }
       return listAccounts;
     }
 
     @Override
-    public BankAccount create(String nif, BankAccountType type, Double amount) {
+    public Account createAccount(String nif, BankAccountType type, Double amount) {
         return null;
     }
 
     @Override
-    public BankAccount update(BankAccount bankAccount) {
+    public Account updateAccount(Account account) {
         return null;
     }
 
     @Override
-    public boolean incrementAmount(Long id, Double amount) {
+    public boolean incrementAccountAmount(Long id, Double amount) {
         boolean incremented = false;
         if (amount > 0) {
-            Optional<BankAccount> optAccount = findById(id);
+            Optional<Account> optAccount = findAccountById(id);
             if (optAccount.isPresent()) {
-                BankAccount account = optAccount.get();
+                Account account = optAccount.get();
                 // TODO comprobar que se incrementa
                 account.increaseAmount(amount);
                 incremented = true;
@@ -76,12 +77,12 @@ public class BankAccountServiceImpl implements IBankAccountService {
     }
 
     @Override
-    public boolean decrementAmount(Long id, Double amount) {
+    public boolean decrementAccountAmount(Long id, Double amount) {
         boolean decremented = false;
         if (amount > 0) {
-            Optional<BankAccount> optAccount = findById(id);
+            Optional<Account> optAccount = findAccountById(id);
             if (optAccount.isPresent()) {
-                BankAccount account = optAccount.get();
+                Account account = optAccount.get();
                 if (account.getAmount() >= amount) {
                     // TODO comprobar que se decrementa
                     account.decrementAmount(amount);
@@ -93,14 +94,14 @@ public class BankAccountServiceImpl implements IBankAccountService {
     }
 
     @Override
-    public boolean transferAmount(Long id1, Long id2, Double amount) {
+    public boolean transferAccountAmount(Long id1, Long id2, Double amount) {
         boolean transferred = false;
         if (amount > 0) {
-            Optional<BankAccount> account1 = findById(id1);
-            Optional<BankAccount> account2 = findById(id1);
+            Optional<Account> account1 = findAccountById(id1);
+            Optional<Account> account2 = findAccountById(id1);
             if (account1.isPresent() && account2.isPresent() && account1.get().getAmount() >= amount)
                 // TODO revisar bien esto
-                if (decrementAmount(id1, amount)) transferred = incrementAmount(id2, amount);
+                if (decrementAccountAmount(id1, amount)) transferred = incrementAccountAmount(id2, amount);
         }
         return transferred;
     }

@@ -1,0 +1,14 @@
+package java_cp2_javier_guerra.interfaces;
+
+import java_cp2_javier_guerra.entities.Employee;
+
+import java.util.List;
+
+public interface IEmployeeService {
+
+    void addEmployee(Employee employee);
+
+    List<Employee> getAllEmployees();
+
+    boolean deleteEmployee(Long id);
+}

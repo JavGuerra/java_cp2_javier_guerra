@@ -5,7 +5,7 @@ Tema: Gestión de cuenta bancaria
 --------------------------------
 
 __Autor__: Javier Guerra  
-__Status__: Finalizado  
+__Status__: Pendiente  
 __Versión__: 1.0.0  
 __Fecha__: 2023-02-
 
@@ -29,7 +29,7 @@ Clases OBLIGATORIAS:
 Clases OPCIONALES:
 * Clase Banco (asociado a BankAccount)
 * Clase Address (asociado a Customer)
-* Clase Préstamo: bankAccount, Empleado, cantidad, interés, fecha expiración
+* Clase Préstamo: account, Empleado, cantidad, interés, fecha expiración
 * Clase Empleado
 * Interfaz e implementación para cada clase
 
@@ -59,6 +59,13 @@ Crear una interfaz para las operaciones de cuenta bancaria:
 ## Recomendable:
 * Intentar gestionar las posibles excepciones y repetir las lecturas en caso de que el usuario introduzca mal los datos. Se puede crear algo parecido a la clase ScannerReader vista en el curso.
 
+
+## TODO
+- Revisar los datos de entrada de todos los métodos
+- Listar sólo cuentas activas
+- Validar Nif del banco, correos y dni
+- Generar ID automático en entidades
+- Clase Préstamo y servicio asociado
 
 Se incluye `CHANGELOG.md` con los cambios de versión.
 

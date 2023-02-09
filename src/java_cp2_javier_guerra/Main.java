@@ -1,7 +1,7 @@
 package java_cp2_javier_guerra;
 
-import static java_cp2_javier_guerra.implementations.MainImpl.*;
-import static java_cp2_javier_guerra.util.ConsoleInput.*;
+import static java_cp2_javier_guerra.MenuOptions.*;
+import static java_cp2_javier_guerra.utils.ConsoleInput.*;
 
 public class Main {
 

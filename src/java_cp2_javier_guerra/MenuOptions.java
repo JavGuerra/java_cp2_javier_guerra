@@ -138,9 +138,11 @@ public abstract class MenuOptions {
 
             double amount = getLongIntPos("Introduzca la cantidad a retirar: ").doubleValue();
             if (amount > 0)
-                System.out.println(accountService.decrementAccountAmount(id, amount)
-                        ? "Nuevo saldo: " + account.getAmount()
-                        : "La cuenta no tiene saldo suficiente.");
+                if (amount <= account.getAmount())
+                    System.out.println(accountService.decrementAccountAmount(id, amount)
+                            ? "Nuevo saldo: " + account.getAmount()
+                            : "No ha sido posible retirar la cantidad.");
+                else System.out.println("Saldo insuficiente para retirar.");
             else System.out.println("Nada que retirar.");
 
         } else System.out.println("No se ha encontrado la cuenta.");
@@ -189,23 +191,26 @@ public abstract class MenuOptions {
 
             double amount = getLongIntPos("Introduzca la cantidad a transferir : ").doubleValue();
             if (amount > 0) {
+                if (amount <= account1.getAmount()) {
 
-                Long id2 = getLongIntPos("Introduzca el ID de la cuenta de destino: ");
-                if (!id2.equals(id1)) {
-                    Optional<Account> optAccount2 = accountService.findAccountById(id2);
-                    if (optAccount2.isPresent()) {
-                        Account account2 = optAccount2.get();
-                        System.out.println("Saldo en destino: " + account2.getAmount());
+                    Long id2 = getLongIntPos("Introduzca el ID de la cuenta de destino: ");
+                    if (!id2.equals(id1)) {
+                        Optional<Account> optAccount2 = accountService.findAccountById(id2);
+                        if (optAccount2.isPresent()) {
+                            Account account2 = optAccount2.get();
+                            System.out.println("Saldo en destino: " + account2.getAmount());
 
-                        if (accountService.transferAccountAmount(id1, id2, amount)) {
-                            System.out.println("La transferencia se ha realizado correctamente.");
-                            System.out.println("Saldo actual en origen: " + account1.getAmount());
-                            System.out.println("Saldo actual en destino: " + account2.getAmount());
-                        } else System.out.println("No ha sido posible realizar la transferencia.");
+                            if (accountService.transferAccountAmount(id1, id2, amount)) {
+                                System.out.println("La transferencia se ha realizado correctamente.");
+                                System.out.println("Saldo actual en origen: " + account1.getAmount());
+                                System.out.println("Saldo actual en destino: " + account2.getAmount());
+                            } else System.out.println("No ha sido posible realizar la transferencia.");
 
-                    } else System.out.println("No se ha encontrado la cuenta de destino.");
+                        } else System.out.println("No se ha encontrado la cuenta de destino.");
 
-                } else System.out.println("El usuario de origen y de destino son el mismo.");
+                    } else System.out.println("El usuario de origen y de destino son el mismo.");
+
+                } else System.out.println("Saldo insuficiente para transferir.");
 
             } else System.out.println("Nada que transferir.");
 

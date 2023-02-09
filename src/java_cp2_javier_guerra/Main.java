@@ -13,7 +13,7 @@ public class Main {
             ├─────┴─────────────────────────────┘
             │  1.  Listar todas las cuentas
             │  2.  Buscar una cuenta por su id
-            │  3.  Buscar una cuenta por el NIF del usuario1
+            │  3.  Buscar una cuenta por el NIF del usuario
             │  4.  Buscar las cuentas por el tipo de cuenta
             │  5.  Buscar las cuentas por una moneda soportada
             │  6.  Listar un tipo de cuenta y cuentas relacionadas

@@ -5,10 +5,23 @@ import java_cp2_javier_guerra.entities.Address;
 import java.util.HashMap;
 import java.util.Map;
 
-public class AddressRepository {
+public final class AddressRepository {
 
-    public static Map<Long, Address> exampleAddresses() {
+    private Map<Long, Address> addresses = new HashMap<>();
 
+    public AddressRepository() {
+        setAddresses(exampleAddresses());
+    }
+
+    public Map<Long, Address> getAddresses() {
+        return addresses;
+    }
+
+    public void setAddresses(Map<Long, Address> addresses) {
+        this.addresses = addresses;
+    }
+
+    private Map<Long, Address> exampleAddresses() {
         var address1 = new Address(1L, "Dirección 1", "04341", "Madrid", "España");
         var address2 = new Address(2L, "Dirección 2", "04342", "Madrid", "España");
         var address3 = new Address(3L, "Dirección 3", "04343", "Barcelona", "España");

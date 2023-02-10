@@ -1,7 +1,7 @@
 package java_cp2_javier_guerra;
 
 import java_cp2_javier_guerra.entities.Bank;
-import java_cp2_javier_guerra.entities.BankServices;
+import java_cp2_javier_guerra.entities.enums.BankServices;
 
 import java.util.Set;
 

@@ -1,14 +1,14 @@
-package java_cp2_javier_guerra.services;
+package java_cp2_javier_guerra.services.implementations;
 
 import java_cp2_javier_guerra.entities.Employee;
+import java_cp2_javier_guerra.repositories.EmployeeRepository;
+import java_cp2_javier_guerra.services.IEmployeeService;
 
 import java.util.*;
 
-import static java_cp2_javier_guerra.repositories.EmployeeRepository.exampleEmployees;
-
 public class EmployeeServiceImpl implements IEmployeeService {
 
-    private final Map<Long, Employee> employees = exampleEmployees();
+    private final Map<Long, Employee> employees = new EmployeeRepository().getEmployees();
 
     @Override
     public Optional<Employee> addEmployee(Employee employee) {

@@ -1,4 +1,4 @@
-package java_cp2_javier_guerra.entities;
+package java_cp2_javier_guerra.entities.enums;
 
 public enum BankServices {
     LOANS("préstamos"), MORTGAGES("hipotecas"), RECEIPTS("recibos"), ACCOUNTS("cuentas"),

@@ -1,18 +1,31 @@
 package java_cp2_javier_guerra.repositories;
 
 import java_cp2_javier_guerra.entities.Account;
-import java_cp2_javier_guerra.entities.BankAccountType;
-import java_cp2_javier_guerra.entities.CurrencyType;
+import java_cp2_javier_guerra.entities.enums.BankAccountType;
+import java_cp2_javier_guerra.entities.enums.CurrencyType;
 
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-public class AccountRepository {
+public final class AccountRepository {
 
-    public static Map<Long, Account> exampleAccounts() {
+    private Map<Long, Account> accounts = new HashMap<>();
 
+    public AccountRepository() {
+        setAccounts(exampleAccounts());
+    }
+
+    public Map<Long, Account> getAccounts() {
+        return accounts;
+    }
+
+    public void setAccounts(Map<Long, Account> accounts) {
+        this.accounts = accounts;
+    }
+
+    private Map<Long, Account> exampleAccounts() {
         var currencies1 = new HashSet<>(Set.of(CurrencyType.EUR, CurrencyType.USD));
         var currencies2 = new HashSet<>(Set.of(CurrencyType.JPY, CurrencyType.USD));
         var currencies3 = new HashSet<>(Set.of(CurrencyType.CZK, CurrencyType.CHF, CurrencyType.RUB));

@@ -1,5 +1,7 @@
 package java_cp2_javier_guerra.entities;
 
+import java_cp2_javier_guerra.entities.enums.BankServices;
+
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;

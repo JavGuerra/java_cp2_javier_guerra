@@ -1,12 +1,15 @@
 package java_cp2_javier_guerra.controllers;
 
 import java_cp2_javier_guerra.entities.*;
+import java_cp2_javier_guerra.entities.enums.BankAccountType;
 import java_cp2_javier_guerra.services.*;
+import java_cp2_javier_guerra.services.implementations.AccountServiceImpl;
+import java_cp2_javier_guerra.services.implementations.CustomerServiceImpl;
 
 import java.util.List;
 import java.util.Optional;
 
-import static java_cp2_javier_guerra.entities.BankAccountType.getBankAccountTypeList;
+import static java_cp2_javier_guerra.entities.enums.BankAccountType.getBankAccountTypeList;
 import static java_cp2_javier_guerra.utils.ConsoleInput.*;
 
 /**
@@ -168,6 +171,8 @@ public abstract class AccountController {
      */
     public static void deleteAccountById() {
         title("Borrar una cuenta por su id");
+
+        // TODO Si la cuenta tiene un préstamo, no borrar
 
         Long id = getLongIntPos("Introduzca el ID de la cuenta: ");
         if (accountService.accountExist(id)) {

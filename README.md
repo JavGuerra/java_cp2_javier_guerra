@@ -17,7 +17,7 @@ Clases OBLIGATORIAS:
     * Saldo (numérico)
     * Tipo (enum): ahorro, inversiones, empresa
     * Coste (numérico)
-    * Interés/recomensa (numérico)
+    * Interés/recompensa (numérico)
     * Customer (Otra clase **obligatoria**)
     * Lista de monedas soportadas: EUR, USD, FOR, HUG, CZK, YEN (Set o List de String)
     * Fecha de creación
@@ -60,12 +60,15 @@ Crear una interfaz para las operaciones de cuenta bancaria:
 * Intentar gestionar las posibles excepciones y repetir las lecturas en caso de que el usuario introduzca mal los datos. Se puede crear algo parecido a la clase ScannerReader vista en el curso.
 
 
+## NOTAS
+
+Se considera que hay un único banco, y todos los servicios son suyos.
+
 ## TODO
 - Opciones restantes
 - Validar Nif del banco, correos y dni
 - Generar ID automático en entidades
 - Si no existe cuenta/usuario/dirección ¿pedir crearla?
-- Clase Préstamo y servicio asociado
 
 Se incluye `CHANGELOG.md` con los cambios de versión.
 

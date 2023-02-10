@@ -1,8 +1,8 @@
 package java_cp2_javier_guerra.services;
 
 import java_cp2_javier_guerra.entities.Account;
-import java_cp2_javier_guerra.entities.BankAccountType;
-import java_cp2_javier_guerra.entities.CurrencyType;
+import java_cp2_javier_guerra.entities.enums.BankAccountType;
+import java_cp2_javier_guerra.entities.enums.CurrencyType;
 
 import java.util.List;
 import java.util.Optional;
@@ -87,7 +87,7 @@ public interface IAccountService {
     boolean decrementAccountAmount(Long id, Double amount);
 
     /**
-     * Tranfiere saldo entre dos cuentas bancarias si es posible.
+     * Transfiere saldo entre dos cuentas bancarias si es posible.
      * @param id1 cuenta de origen.
      * @param id2 cuenta de destino.
      * @param amount cantidad a transferir.

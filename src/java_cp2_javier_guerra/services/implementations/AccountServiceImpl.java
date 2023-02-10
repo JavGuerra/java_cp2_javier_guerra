@@ -1,16 +1,16 @@
-package java_cp2_javier_guerra.services;
+package java_cp2_javier_guerra.services.implementations;
 
 import java_cp2_javier_guerra.entities.Account;
-import java_cp2_javier_guerra.entities.BankAccountType;
-import java_cp2_javier_guerra.entities.CurrencyType;
+import java_cp2_javier_guerra.entities.enums.BankAccountType;
+import java_cp2_javier_guerra.entities.enums.CurrencyType;
+import java_cp2_javier_guerra.repositories.AccountRepository;
+import java_cp2_javier_guerra.services.IAccountService;
 
 import java.util.*;
 
-import static java_cp2_javier_guerra.repositories.AccountRepository.exampleAccounts;
-
 public class AccountServiceImpl implements IAccountService {
 
-    private final Map<Long, Account> accounts = exampleAccounts();
+    private final Map<Long, Account> accounts = new AccountRepository().getAccounts();
 
     @Override
     public boolean accountExist(Long id) {

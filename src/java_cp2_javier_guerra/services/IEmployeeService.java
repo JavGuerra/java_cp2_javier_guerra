@@ -8,13 +8,22 @@ import java.util.Optional;
 public interface IEmployeeService {
 
     /**
-     *
-     * @param employee
-     * @return
+     * Añade un empleado a la lista de empleados.
+     * @param employee empleado a añadir.
+     * @return opcionalmente, el mismo empleado.
      */
     Optional<Employee> addEmployee(Employee employee);
 
+    /**
+     * Obtiene todos los empleados.
+     * @return lista de empleados.
+     */
     List<Employee> getAllEmployees();
 
+    /**
+     * Borra un empleado de la lista.
+     * @param id del empleado.
+     * @return true si se borró el empleado o false en caso contrario.
+     */
     boolean deleteEmployee(Long id);
 }

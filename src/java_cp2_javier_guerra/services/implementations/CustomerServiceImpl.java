@@ -1,14 +1,14 @@
-package java_cp2_javier_guerra.services;
+package java_cp2_javier_guerra.services.implementations;
 
 import java_cp2_javier_guerra.entities.Customer;
+import java_cp2_javier_guerra.repositories.CustomerRepository;
+import java_cp2_javier_guerra.services.ICustomerService;
 
 import java.util.*;
 
-import static java_cp2_javier_guerra.repositories.CustomerRepository.exampleCustomers;
-
 public class CustomerServiceImpl implements ICustomerService {
 
-    private final Map<Long, Customer> customers = exampleCustomers();
+    private final Map<Long, Customer> customers = new CustomerRepository().getCustomers();
 
     @Override
     public Optional<Customer> addCustomer(Customer customer) {

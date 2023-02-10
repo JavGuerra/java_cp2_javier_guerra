@@ -1,4 +1,4 @@
-package java_cp2_javier_guerra;
+package java_cp2_javier_guerra.controllers;
 
 import java_cp2_javier_guerra.entities.*;
 import java_cp2_javier_guerra.services.*;
@@ -6,21 +6,16 @@ import java_cp2_javier_guerra.services.*;
 import java.util.List;
 import java.util.Optional;
 
-import static java_cp2_javier_guerra.ExampleData.exampleBank;
 import static java_cp2_javier_guerra.entities.BankAccountType.getBankAccountTypeList;
 import static java_cp2_javier_guerra.utils.ConsoleInput.*;
 
 /**
- * Opciones del menú de la aplicación
+ * Opciones del menú de cuentas bancarias de la aplicación
  */
-public abstract class MenuOptions {
+public abstract class AccountController {
 
-    private static final Bank bank = exampleBank(true);
-
-    private static final IAccountService accountService = (IAccountService) bank.getService("accountService");
-    private static final ICustomerService customerService = (ICustomerService) bank.getService("customerService");
-    private static final IEmployeeService employeeService = (IEmployeeService) bank.getService("employeeService");
-    private static final IAddressService addressService = (IAddressService) bank.getService("addressService");
+    private static final IAccountService accountService = new AccountServiceImpl();
+    private static final ICustomerService customerService = new CustomerServiceImpl();
 
     /**
      * Lista todas las cuentas bancarias disponibles (activas o no).

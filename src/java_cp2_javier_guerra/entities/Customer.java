@@ -8,18 +8,18 @@ public class Customer {
     private Long id;
     private String name;
     private String nif;
-    private Address address;
+    private Long addressId;
     private Boolean active = true;
     private LocalDateTime openingAccountDate = null;
     private LocalDateTime closingAccountDate = null;
 
     Customer() {}
 
-    public Customer(Long id, String name, String nif, Address address) {
+    public Customer(Long id, String name, String nif, Long addressId) {
         setId(id);
         setName(name);
         setNif(nif);
-        setAddress(address);
+        setAddressId(addressId);
         setOpeningAccountDate(LocalDateTime.now());
     }
 
@@ -47,12 +47,12 @@ public class Customer {
         this.nif = nif;
     }
 
-    public Address getAddress() {
-        return address;
+    public Long getAddressId() {
+        return addressId;
     }
 
-    public void setAddress(Address address) {
-        this.address = address;
+    public void setAddressId(Long addressId) {
+        this.addressId = addressId;
     }
 
     public Boolean getActive() {
@@ -98,7 +98,7 @@ public class Customer {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", nif='" + nif + '\'' +
-                ", address=" + address +
+                ", addressId=" + addressId +
                 ", active=" + active +
                 ", openingAccountDate=" + openingAccountDate +
                 ", closingAccountDate=" + closingAccountDate +

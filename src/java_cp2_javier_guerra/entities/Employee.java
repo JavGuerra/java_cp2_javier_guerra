@@ -7,13 +7,15 @@ public class Employee {
     private Long id;
     private String name;
     private String nif;
+    private Long addressId;
 
     Employee() {}
 
-    public Employee(Long id, String name, String nif) {
+    public Employee(Long id, String name, String nif, Long addressId) {
         setId(id);
         setName(name);
         setNif(nif);
+        setAddressId(addressId);
     }
 
     public Long getId() {
@@ -38,6 +40,14 @@ public class Employee {
 
     public void setNif(String nif) {
         this.nif = nif;
+    }
+
+    public Long getAddressId() {
+        return addressId;
+    }
+
+    public void setAddressId(Long addressId) {
+        this.addressId = addressId;
     }
 
     @Override

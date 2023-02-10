@@ -4,9 +4,11 @@ import java_cp2_javier_guerra.entities.Customer;
 
 import java.util.*;
 
+import static java_cp2_javier_guerra.repositories.CustomerRepository.exampleCustomers;
+
 public class CustomerServiceImpl implements ICustomerService {
 
-    private final Map<Long, Customer> customers = new HashMap<>();
+    private final Map<Long, Customer> customers = exampleCustomers();
 
     @Override
     public Optional<Customer> addCustomer(Customer customer) {

@@ -1,29 +1,24 @@
 package java_cp2_javier_guerra.entities;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 public final class Bank {
 
     private Long id;
     private String name;
     private String nif;
-    private Map<String, Object> services = new HashMap<>();
+    private Long addressId;
+    private Set<BankServices> bankServices = new HashSet<>();
 
     public Bank() {}
 
-    public Bank(Long id, String name, String nif) {
+    public Bank(Long id, String name, String nif, Long addressId) {
         setId(id);
         setName(name);
         setNif(nif);
-    }
-
-    public Bank(Long id, String name, String nif, Map<String, Object> services) {
-        setId(id);
-        setName(name);
-        setNif(nif);
-        setServices(services);
+        setAddressId(addressId);
     }
 
     public Long getId() {
@@ -50,20 +45,20 @@ public final class Bank {
         this.nif = nif;
     }
 
-    public Map<String, Object> getServices() {
-        return services;
+    public Long getAddressId() {
+        return addressId;
     }
 
-    public void setServices(Map<String, Object> services) {
-        this.services = services;
+    public void setAddressId(Long addressId) {
+        this.addressId = addressId;
     }
 
-    public Object getService(String service) {
-        return services.get(service);
+    public Set<BankServices> getBankServices() {
+        return bankServices;
     }
 
-    public void setService(String name, Object service) {
-        services.put(name, service);
+    public void setBankServices(Set<BankServices> bankServices) {
+        this.bankServices = bankServices;
     }
 
     @Override
@@ -81,6 +76,8 @@ public final class Bank {
 
     @Override
     public String toString() {
-        return "ID: " + id + ", «" + name + "», " + nif;
+        StringBuilder str = new StringBuilder("Banco «" + name + "», " + nif + " Servicios:");
+        for (BankServices bankService : bankServices) str.append(" ").append(bankService.getName());
+        return str.toString();
     }
 }

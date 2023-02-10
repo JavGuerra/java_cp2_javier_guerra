@@ -6,9 +6,11 @@ import java_cp2_javier_guerra.entities.CurrencyType;
 
 import java.util.*;
 
+import static java_cp2_javier_guerra.repositories.AccountRepository.exampleAccounts;
+
 public class AccountServiceImpl implements IAccountService {
 
-    private final Map<Long, Account> accounts = new HashMap<>();
+    private final Map<Long, Account> accounts = exampleAccounts();
 
     @Override
     public boolean accountExist(Long id) {
@@ -57,7 +59,6 @@ public class AccountServiceImpl implements IAccountService {
 
     @Override
     public Optional<Account> updateAccount(Account account) {
-
         return null;
     }
 

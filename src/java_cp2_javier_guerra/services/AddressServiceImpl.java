@@ -4,9 +4,11 @@ import java_cp2_javier_guerra.entities.Address;
 
 import java.util.*;
 
+import static java_cp2_javier_guerra.repositories.AddressRepository.exampleAddresses;
+
 public class AddressServiceImpl implements IAddressService {
 
-    private final Map<Long, Address> addresses = new HashMap<>();
+    private final Map<Long, Address> addresses = exampleAddresses();
 
     @Override
     public Optional<Address> addAddress(Address address) {

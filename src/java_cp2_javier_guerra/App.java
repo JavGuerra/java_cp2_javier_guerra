@@ -1,15 +1,23 @@
 package java_cp2_javier_guerra;
 
-import static java_cp2_javier_guerra.MenuOptions.*;
+import java_cp2_javier_guerra.entities.Bank;
+import java_cp2_javier_guerra.entities.BankServices;
+
+import java.util.Set;
+
+import static java_cp2_javier_guerra.controllers.AccountController.*;
 import static java_cp2_javier_guerra.utils.ConsoleInput.*;
 
 /**
  * Menú principal de la aplicación
- * @autor Javier Guerra
+ * @author or Javier Guerra
  */
-public class Main {
+public class App {
 
     public static void main(String[] args) {
+
+        Bank bank = new Bank(1L,"Banco", "11223344A", 1L);
+        bank.setBankServices(Set.of(BankServices.ACCOUNTS, BankServices.LOANS));
 
         byte opt;
         String menu = """
@@ -32,6 +40,7 @@ public class Main {
             └───────────────────────────────┐""";
 
         clearConsole();
+        System.out.println("\n" + bank + "\n");
         System.out.println(menu);
 
         while (true) {

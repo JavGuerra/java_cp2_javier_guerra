@@ -4,9 +4,11 @@ import java_cp2_javier_guerra.entities.Employee;
 
 import java.util.*;
 
+import static java_cp2_javier_guerra.repositories.EmployeeRepository.exampleEmployees;
+
 public class EmployeeServiceImpl implements IEmployeeService {
 
-    private final Map<Long, Employee> employees = new HashMap<>();
+    private final Map<Long, Employee> employees = exampleEmployees();
 
     @Override
     public Optional<Employee> addEmployee(Employee employee) {

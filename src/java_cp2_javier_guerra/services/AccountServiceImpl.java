@@ -2,6 +2,7 @@ package java_cp2_javier_guerra.services;
 
 import java_cp2_javier_guerra.entities.Account;
 import java_cp2_javier_guerra.entities.BankAccountType;
+import java_cp2_javier_guerra.entities.CurrencyType;
 
 import java.util.*;
 
@@ -15,9 +16,8 @@ public class AccountServiceImpl implements IAccountService {
     }
 
     @Override
-    public void addAccount(Account account) {
-        // TODO comprobar que se guarda
-        accounts.put(account.getId(), account);
+    public Optional<Account> addAccount(Account account) {
+        return Optional.ofNullable(accounts.put(account.getId(), account));
     }
 
     @Override
@@ -26,12 +26,12 @@ public class AccountServiceImpl implements IAccountService {
     }
 
     @Override
-    public Optional<Account> findAccountById(Long id) {
+    public Optional<Account> getAccountById(Long id) {
         return Optional.ofNullable(accounts.get(id));
     }
 
     @Override
-    public Optional<Account> findAccountByCustomerId(Long id) {
+    public Optional<Account> getAccountByCustomerId(Long id) {
         if (id > 0) {
             for (Account account : accounts.values())
                 if (account.getIdCustomer().equals(id)) return Optional.of(account);
@@ -40,7 +40,7 @@ public class AccountServiceImpl implements IAccountService {
     }
 
     @Override
-    public List<Account> findAllAccountsByType(byte numType) {
+    public List<Account> getAllAccountsByType(byte numType) {
         List<Account> listAccounts =  new ArrayList<>();
         if (numType >= 1 && numType <= BankAccountType.values().length) {
             BankAccountType type = BankAccountType.values()[--numType];
@@ -51,12 +51,13 @@ public class AccountServiceImpl implements IAccountService {
     }
 
     @Override
-    public Account createAccount(String nif, BankAccountType type, Double amount) {
+    public Optional<Account> createAccount(Long id, Double amount, BankAccountType type, Set<CurrencyType> currencies, Long idCustomer, Long idCreationEmployee) {
         return null;
     }
 
     @Override
-    public Account updateAccount(Account account) {
+    public Optional<Account> updateAccount(Account account) {
+
         return null;
     }
 
@@ -64,10 +65,9 @@ public class AccountServiceImpl implements IAccountService {
     public boolean incrementAccountAmount(Long id, Double amount) {
         boolean incremented = false;
         if (amount > 0) {
-            Optional<Account> optAccount = findAccountById(id);
+            Optional<Account> optAccount = getAccountById(id);
             if (optAccount.isPresent()) {
                 Account account = optAccount.get();
-                // TODO comprobar que se incrementa
                 account.increaseAmount(amount);
                 incremented = true;
             }
@@ -79,11 +79,10 @@ public class AccountServiceImpl implements IAccountService {
     public boolean decrementAccountAmount(Long id, Double amount) {
         boolean decremented = false;
         if (amount > 0) {
-            Optional<Account> optAccount = findAccountById(id);
+            Optional<Account> optAccount = getAccountById(id);
             if (optAccount.isPresent()) {
                 Account account = optAccount.get();
                 if (account.getAmount() >= amount) {
-                    // TODO comprobar que se decrementa
                     account.decrementAmount(amount);
                     decremented = true;
                 }
@@ -96,10 +95,9 @@ public class AccountServiceImpl implements IAccountService {
     public boolean transferAccountAmount(Long id1, Long id2, Double amount) {
         boolean transferred = false;
         if (amount > 0) {
-            Optional<Account> account1 = findAccountById(id1);
-            Optional<Account> account2 = findAccountById(id1);
+            Optional<Account> account1 = getAccountById(id1);
+            Optional<Account> account2 = getAccountById(id1);
             if (account1.isPresent() && account2.isPresent() && account1.get().getAmount() >= amount)
-                // TODO revisar bien esto
                 if (decrementAccountAmount(id1, amount)) transferred = incrementAccountAmount(id2, amount);
         }
         return transferred;

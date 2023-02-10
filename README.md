@@ -61,10 +61,10 @@ Crear una interfaz para las operaciones de cuenta bancaria:
 
 
 ## TODO
-- Revisar los datos de entrada de todos los métodos
-- Listar sólo cuentas activas
+- Opciones restantes
 - Validar Nif del banco, correos y dni
 - Generar ID automático en entidades
+- Si no existe cuenta/usuario/dirección ¿pedir crearla?
 - Clase Préstamo y servicio asociado
 
 Se incluye `CHANGELOG.md` con los cambios de versión.

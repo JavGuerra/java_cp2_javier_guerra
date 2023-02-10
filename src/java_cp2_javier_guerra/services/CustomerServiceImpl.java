@@ -1,7 +1,6 @@
 package java_cp2_javier_guerra.services;
 
 import java_cp2_javier_guerra.entities.Customer;
-import java_cp2_javier_guerra.services.ICustomerService;
 
 import java.util.*;
 
@@ -10,9 +9,8 @@ public class CustomerServiceImpl implements ICustomerService {
     private final Map<Long, Customer> customers = new HashMap<>();
 
     @Override
-    public void addCustomer(Customer customer) {
-        // TODO comprobar que se guarda
-        customers.put(customer.getId(), customer);
+    public Optional<Customer> addCustomer(Customer customer) {
+        return Optional.ofNullable(customers.put(customer.getId(), customer));
     }
 
     @Override
@@ -21,7 +19,7 @@ public class CustomerServiceImpl implements ICustomerService {
     }
 
     @Override
-    public Optional<Customer> findCustomerByNif(String nif) {
+    public Optional<Customer> getCustomerByNif(String nif) {
         if (nif != null && !nif.equals("")) {
             for (Customer customer : customers.values())
                 if (customer.getNif().equals(nif)) return Optional.of(customer);

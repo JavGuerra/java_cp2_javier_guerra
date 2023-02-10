@@ -3,27 +3,32 @@ package java_cp2_javier_guerra;
 import static java_cp2_javier_guerra.MenuOptions.*;
 import static java_cp2_javier_guerra.utils.ConsoleInput.*;
 
+/**
+ * Menú principal de la aplicación
+ * @autor Javier Guerra
+ */
 public class Main {
 
     public static void main(String[] args) {
+
         byte opt;
         String menu = """
-            ┌─────┬─────────────────────────────┐
-            │ Opc.│  Menú de cuentas bancarias  │
-            ├─────┴─────────────────────────────┘
-            │  1.  Listar todas las cuentas
-            │  2.  Buscar una cuenta por su id
-            │  3.  Buscar una cuenta por el NIF del usuario
-            │  4.  Buscar las cuentas por el tipo de cuenta
-            │  5.  Buscar las cuentas por una moneda soportada
-            │  6.  Listar un tipo de cuenta y cuentas relacionadas
-            │  7.  Crear una nueva cuenta
-            │  8.  Incrementar el saldo de una cuenta por su id
-            │  9.  Retirar del saldo de una cuenta por su id
-            │ 10.  Actualizar una cuenta por su id
-            │ 11.  Borrar una cuenta por su id
-            │ 12.  Transferir saldo de una cuenta a otra por sus id
-            │  0.  Salir de la aplicación
+                   ┌───────────────────────────────┐
+              Opc. │   Menú de cuentas bancarias   │
+            ┌──────┴───────────────────────────────┘
+            │   1.  Listar todas las cuentas
+            │   2.  Buscar una cuenta por su id
+            │   3.  Buscar una cuenta por el NIF del usuario
+            │   4.  Buscar las cuentas por el tipo de cuenta
+            │   5.  Buscar las cuentas por una moneda soportada
+            │   6.  Listar un tipo de cuenta y cuentas relacionadas
+            │   7.  Crear una nueva cuenta
+            │   8.  Incrementar el saldo de una cuenta por su id
+            │   9.  Retirar saldo de una cuenta por su id
+            │  10.  Actualizar una cuenta por su id
+            │  11.  Borrar una cuenta por su id
+            │  12.  Transferir saldo entre dos cuentas por sus id
+            │   0.  Salir de la aplicación
             └───────────────────────────────┐""";
 
         clearConsole();
@@ -57,6 +62,6 @@ public class Main {
         }
 
         closeScanner();
-        System.out.println("La aplicación ha finalizado.");
+        System.out.println("\nLa aplicación ha finalizado.");
     }
 }

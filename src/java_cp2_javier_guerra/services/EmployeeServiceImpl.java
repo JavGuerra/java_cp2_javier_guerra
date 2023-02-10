@@ -1,21 +1,16 @@
 package java_cp2_javier_guerra.services;
 
 import java_cp2_javier_guerra.entities.Employee;
-import java_cp2_javier_guerra.services.IEmployeeService;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class EmployeeServiceImpl implements IEmployeeService {
 
     private final Map<Long, Employee> employees = new HashMap<>();
 
     @Override
-    public void addEmployee(Employee employee) {
-        // TODO comprobar que se guarda
-        employees.put(employee.getId(), employee);
+    public Optional<Employee> addEmployee(Employee employee) {
+        return Optional.ofNullable(employees.put(employee.getId(), employee));
     }
 
     @Override

@@ -12,7 +12,7 @@ public class ExampleData {
 
     /**
      * Genera un Banco vacío o con datos ficticios para cuentas, clientes y direcciones.
-     * @param data Con datos (true) o vacío (false)
+     * @param data Con datos ficticios (true) o sin datos (false)
      * @return Banco
      */
     public static Bank exampleBank(boolean data) {
@@ -30,7 +30,6 @@ public class ExampleData {
         employeeService.addEmployee(employee1);
 
         if (data) {
-
             var address1 = new Address(1L, "Dirección 1", "04341", "Madrid", "España");
             var address2 = new Address(2L, "Dirección 2", "04342", "Madrid", "España");
             var address3 = new Address(3L, "Dirección 3", "04343", "Barcelona", "España");

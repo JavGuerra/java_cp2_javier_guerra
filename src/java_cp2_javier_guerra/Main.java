@@ -12,7 +12,7 @@ import static java_cp2_javier_guerra.utils.ConsoleInput.*;
  * Menú principal de la aplicación
  * @author or Javier Guerra
  */
-public class App {
+public class Main {
 
     public static void main(String[] args) {
 

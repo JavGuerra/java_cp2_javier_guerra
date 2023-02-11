@@ -13,6 +13,8 @@ public class Loan {
     private LocalDateTime startDate = null;
     private LocalDateTime finalDate = null;
 
+    public Loan() {}
+
     public Loan(Long id, Long accountId, Long employeeId, Double amount, Integer interestRate) {
         setId(id);
         setAccountId(accountId);

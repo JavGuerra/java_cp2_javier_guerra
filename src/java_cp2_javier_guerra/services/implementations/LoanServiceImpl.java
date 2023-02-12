@@ -1,5 +1,6 @@
 package java_cp2_javier_guerra.services.implementations;
 
+import java_cp2_javier_guerra.entities.Customer;
 import java_cp2_javier_guerra.entities.Loan;
 import java_cp2_javier_guerra.repositories.LoanRepository;
 import java_cp2_javier_guerra.services.ILoanService;
@@ -21,6 +22,20 @@ public class LoanServiceImpl implements ILoanService {
     @Override
     public List<Loan> getAllLoans() {
         return new ArrayList<>(loans.values());
+    }
+
+    @Override
+    public boolean loanExistById(Long accountId) {
+        boolean thereIsLoan = false;
+        if (accountId != null && accountId > 0) {
+            for (Loan loan : loans.values()) {
+                if (loan.getAccountId().equals(accountId)) {
+                    thereIsLoan = true;
+                    break;
+                }
+            }
+        }
+        return thereIsLoan;
     }
 
     @Override

@@ -21,6 +21,13 @@ public interface ILoanService {
     List<Loan> getAllLoans();
 
     /**
+     * Comprueba si existe un préstamo con el id de la cuenta bancaria asociada.
+     * @param accountId de la cuenta asociada al préstamo.
+     * @return true si existe el préstamo, false en caso contrario.
+     */
+    boolean loanExistById(Long accountId);
+
+    /**
      * Borra un préstamo de la lista.
      * @param id del préstamo.
      * @return true si se borró el préstamo o false en caso contrario.

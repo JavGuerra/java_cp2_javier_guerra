@@ -13,7 +13,7 @@ public class AccountServiceImpl implements IAccountService {
     private final Map<Long, Account> accounts = new AccountRepository(true).getAccounts();
 
     @Override
-    public boolean accountExist(Long id) {
+    public boolean accountExistById(Long id) {
         return accounts.containsKey(id);
     }
 
@@ -69,7 +69,7 @@ public class AccountServiceImpl implements IAccountService {
         return listAccounts;
     }
 
-    public boolean thereIsCurrency(Long id, byte numType) {
+    public boolean currencyExist(Long id, byte numType) {
         boolean thereIsCurrency = false;
         if (id > 0 && numType >= 0 && numType <= CurrencyType.values().length - 1) {
             CurrencyType currencyType =  CurrencyType.values()[numType];

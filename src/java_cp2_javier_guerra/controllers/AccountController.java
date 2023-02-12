@@ -19,6 +19,7 @@ public abstract class AccountController {
 
     private static final IAccountService accountService = new AccountServiceImpl();
     private static final ICustomerService customerService = new CustomerServiceImpl();
+    private static final ILoanService loanService = new LoanServiceImpl();
 
     private static final Boolean thereAreAccounts = accountService.getAllAccounts().size() > 0;
 
@@ -269,13 +270,15 @@ public abstract class AccountController {
                         if (pos > 0) {
                             --pos;
                             if (mode == 1) {
-                                if (!accountService.thereIsCurrency(account.getId(), pos)) {
+                                if (!accountService.currencyExist(account.getId(), pos)) {
                                     account.setCurrency(CurrencyType.values()[pos]);
                                     System.out.println("Añadida la moneda: " + CurrencyType.values()[pos].getName());
                                 } else System.out.println("La moneda ya está soportada.");
                             } else {
-                                if (accountService.thereIsCurrency(account.getId(), pos)) {
+                                if (accountService.currencyExist(account.getId(), pos)) {
+
                                     // TODO Quitar moneda
+
                                 } else System.out.println("La moneda no está soportada.");
                             }
                         }
@@ -283,8 +286,10 @@ public abstract class AccountController {
 
                     case 5 -> {
                         System.out.println("Cambiar el estado (" + (account.isActive() ? "activo" : "inactivo") + ") de la cuenta.");
-                        account.setActive(!account.isActive());
-                        System.out.println("La cuenta está ahora: " + (account.isActive() ? "activa" : "inactiva"));
+                        if (getYesNo("¿Desea confirmar el cambio de estado? (S/N): ")) {
+                            account.setActive(!account.isActive());
+                            System.out.println("La cuenta ahora está: " + (account.isActive() ? "activa" : "inactiva"));
+                        } else System.out.println("Cambio de estado cancelado.");
                     }
                 }
 
@@ -298,18 +303,18 @@ public abstract class AccountController {
     public static void deleteAccountById() {
         title("Borrar una cuenta por su id");
 
-        // TODO Si la cuenta tiene un préstamo, no borrar
-
         if (thereAreAccounts) {
             Long id = getLongIntPos("Introduzca el ID de la cuenta: ");
-            if (accountService.accountExist(id)) {
+            if (accountService.accountExistById(id)) {
+                if (!loanService.loanExistById(id)) {
 
-                if (getYesNo("¿Desea confirmar el borrado? (S/N): ")) {
-                    System.out.println(accountService.deleteAccount(id)
-                            ? "La cuenta ha sido borrada correctamente."
-                            : "No ha sido posible eliminar la cuenta.");
-                } else System.out.println("Borrado cancelado.");
+                    if (getYesNo("¿Desea confirmar el borrado? (S/N): ")) {
+                        System.out.println(accountService.deleteAccount(id)
+                                ? "La cuenta ha sido borrada correctamente."
+                                : "No ha sido posible eliminar la cuenta.");
+                    } else System.out.println("Borrado cancelado.");
 
+                } else System.out.println("No es posible borrar la cuenta.\nHay un préstamo asociado.");
             } else System.out.println("No se ha encontrado la cuenta.");
         } else System.out.println("No hay cuentas bancarias.");
     }

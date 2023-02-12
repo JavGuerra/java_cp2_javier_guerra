@@ -1,12 +1,9 @@
 package java_cp2_javier_guerra.services;
 
 import java_cp2_javier_guerra.entities.Account;
-import java_cp2_javier_guerra.entities.enums.BankAccountType;
-import java_cp2_javier_guerra.entities.enums.CurrencyType;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 public interface IAccountService {
 
@@ -15,7 +12,7 @@ public interface IAccountService {
      * @param id de la cuenta.
      * @return existe/true o no/false.
      */
-    boolean accountExist(Long id);
+    boolean accountExistById(Long id);
 
     /**
      * Añade una cuenta bancaria a la lista de cuentas.
@@ -64,7 +61,7 @@ public interface IAccountService {
      * @param numType tipo de moneda.
      * @return true si soporta la moneda, false en caso contrario.
      */
-    boolean thereIsCurrency(Long id, byte numType);
+    boolean currencyExist(Long id, byte numType);
 
     /**
      * Incrementa el saldo de la cuenta bancaria.

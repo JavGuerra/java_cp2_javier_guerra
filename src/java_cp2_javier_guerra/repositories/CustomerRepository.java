@@ -9,8 +9,8 @@ public final class CustomerRepository {
 
     private Map<Long, Customer> customers = new HashMap<>();
 
-    public CustomerRepository() {
-        setCustomers(exampleCustomers());
+    public CustomerRepository(Boolean data) {
+        setCustomers(exampleCustomers(data));
     }
 
     public Map<Long, Customer> getCustomers() {
@@ -21,12 +21,25 @@ public final class CustomerRepository {
         this.customers = customers;
     }
 
-    private Map<Long, Customer> exampleCustomers() {
-        var customer1 = new Customer(1L, "Cliente 1", "12345678A", 1L);
-        var customer2 = new Customer(2L, "Cliente 2", "12345678B", 2L);
-        var customer3 = new Customer(3L, "Cliente 3", "12345678C", 3L);
+    /**
+     * Genera una lista de clientes de ejemplo o una lista vacía.
+     * @param data true incluye datos de ejemplo, false no lo hace.
+     * @return Lista de clientes.
+     */
+    private Map<Long, Customer> exampleCustomers(Boolean data) {
+        if (data == null) data = false;
 
-        return new HashMap<>
-                (Map.of(customer1.getId(), customer1, customer2.getId(), customer2, customer3.getId(), customer3));
+        Map<Long, Customer> customers = new HashMap<>();
+
+        if (data) {
+            var customer1 = new Customer(1L, "Cliente 1", "12345678A", 1L);
+            var customer2 = new Customer(2L, "Cliente 2", "12345678B", 2L);
+            var customer3 = new Customer(3L, "Cliente 3", "12345678C", 3L);
+
+            return new HashMap<>
+                    (Map.of(customer1.getId(), customer1, customer2.getId(), customer2, customer3.getId(), customer3));
+        }
+
+        return customers;
     }
 }

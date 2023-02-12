@@ -8,7 +8,7 @@ import java.util.*;
 
 public class AddressServiceImpl implements IAddressService {
 
-    private final Map<Long, Address> addresses = new AddressRepository().getAddresses();
+    private final Map<Long, Address> addresses = new AddressRepository(true).getAddresses();
 
     @Override
     public Optional<Address> addAddress(Address address) {

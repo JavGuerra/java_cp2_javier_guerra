@@ -9,8 +9,8 @@ public class LoanRepository {
 
     private Map<Long, Loan> loans = new HashMap<>();
 
-    public LoanRepository() {
-        setLoans(exampleLoans());
+    public LoanRepository(Boolean data) {
+        setLoans(exampleLoans(data));
     }
 
     public Map<Long, Loan> getLoans() {
@@ -21,9 +21,22 @@ public class LoanRepository {
         this.loans = loans;
     }
 
-    private Map<Long, Loan> exampleLoans() {
-        var loan1 = new Loan(1L,1L, 1L, 5000d, 5);
+    /**
+     * Genera una lista de préstamos de ejemplo o una lista vacía.
+     * @param data true incluye datos de ejemplo, false no lo hace.
+     * @return Lista de préstamos.
+     */
+    private Map<Long, Loan> exampleLoans(Boolean data) {
+        if (data == null) data = false;
 
-        return new HashMap<>(Map.of(1L, loan1));
+        Map<Long, Loan> loans = new HashMap<>();
+
+        if (data) {
+            var loan1 = new Loan(1L, 1L, 1L, 5000d, 5);
+
+            loans.putAll(Map.of(1L, loan1));
+        }
+
+        return loans;
     }
 }

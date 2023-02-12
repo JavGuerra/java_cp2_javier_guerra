@@ -3,6 +3,11 @@ package java_cp2_javier_guerra.utils;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+/**
+ * Gestión de entrada por teclado
+ * Más info: <a href="https://javguerra.github.io/2023-01-31-clase-scanner-java/">ConsoleInput kit</a>
+ * @author Javier Guerra
+ */
 public abstract class ConsoleInput {
 
     private static final Scanner IN = new Scanner(System.in);
@@ -13,6 +18,7 @@ public abstract class ConsoleInput {
      * @return Long Número introducido
      */
     public static Long getLongIntPos(String message) {
+        if (message == null) message = "";
         long num;
         while(true) {
             System.out.print(message);
@@ -38,6 +44,9 @@ public abstract class ConsoleInput {
      * @return Long Número introducido
      */
     public static Long getLongIntPosByRange(String message, Long min, Long max) {
+        if (message == null) message = "";
+        if (min == null) min = 0L;
+        if (max == null) max = 1L;
         long num;
         if (min > max) { num = min; min = max; max = num; }
         while(true) {
@@ -61,6 +70,7 @@ public abstract class ConsoleInput {
      * @return String Palabra introducida
      */
     public static String getWord(String message) {
+        if (message == null) message = "";
         String str;
         while(true) {
             System.out.print(message);
@@ -84,6 +94,7 @@ public abstract class ConsoleInput {
      * @return String Cadena de texto introducida
      */
     public static String getString(String message) {
+        if (message == null) message = "";
         String str;
         while(true) {
             System.out.print(message);
@@ -106,6 +117,7 @@ public abstract class ConsoleInput {
      * @return Boolean true/Sí o false/No
      */
     public static Boolean getYesNo(String message) {
+        if (message == null) message = "";
         char chr;
         while(true) {
             System.out.print(message);

@@ -11,7 +11,7 @@ import java.util.Optional;
 
 public class LoanServiceImpl implements ILoanService {
 
-    private final Map<Long, Loan> loans = new LoanRepository().getLoans();
+    private final Map<Long, Loan> loans = new LoanRepository(true).getLoans();
 
     @Override
     public Optional<Loan> addLoan(Loan loan) {

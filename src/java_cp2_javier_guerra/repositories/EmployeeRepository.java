@@ -9,8 +9,8 @@ public final class EmployeeRepository {
 
     private Map<Long, Employee> employees = new HashMap<>();
 
-    public EmployeeRepository() {
-        setEmployees(exampleEmployees());
+    public EmployeeRepository(Boolean data) {
+        setEmployees(exampleEmployees(data));
     }
 
     public Map<Long, Employee> getEmployees() {
@@ -21,9 +21,22 @@ public final class EmployeeRepository {
         this.employees = employees;
     }
 
-    private Map<Long, Employee> exampleEmployees() {
-        var employee1 = new Employee(1L,"Empleado 1", "87654321A", 2L);
+    /**
+     * Genera una lista de empleados de ejemplo o una lista vacía.
+     * @param data true incluye datos de ejemplo, false no lo hace.
+     * @return Lista de empleados.
+     */
+    private Map<Long, Employee> exampleEmployees(Boolean data) {
+        if (data == null) data = false;
 
-        return new HashMap<>(Map.of(employee1.getId(), employee1));
+        Map<Long, Employee> employees = new HashMap<>();
+
+        if (data) {
+            var employee1 = new Employee(1L, "Empleado 1", "87654321A", 2L);
+
+            employees.putAll(Map.of(employee1.getId(), employee1));
+        }
+
+        return employees;
     }
 }

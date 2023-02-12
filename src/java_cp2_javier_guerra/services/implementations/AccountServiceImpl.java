@@ -10,7 +10,7 @@ import java.util.*;
 
 public class AccountServiceImpl implements IAccountService {
 
-    private final Map<Long, Account> accounts = new AccountRepository().getAccounts();
+    private final Map<Long, Account> accounts = new AccountRepository(true).getAccounts();
 
     @Override
     public boolean accountExist(Long id) {

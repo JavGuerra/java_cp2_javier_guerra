@@ -8,7 +8,7 @@ import java.util.*;
 
 public class CustomerServiceImpl implements ICustomerService {
 
-    private final Map<Long, Customer> customers = new CustomerRepository().getCustomers();
+    private final Map<Long, Customer> customers = new CustomerRepository(true).getCustomers();
 
     @Override
     public Optional<Customer> addCustomer(Customer customer) {

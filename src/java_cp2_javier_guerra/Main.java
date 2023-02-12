@@ -10,13 +10,13 @@ import static java_cp2_javier_guerra.utils.ConsoleInput.*;
 
 /**
  * Menú principal de la aplicación
- * @author or Javier Guerra
+ * @author Javier Guerra
  */
 public class Main {
 
     public static void main(String[] args) {
 
-        Bank bank = new Bank(1L,"Banco", "11223344A", 1L);
+        Bank bank = new Bank(1L,"TuBanca", "Aportando valor", "11223344A", 1L);
         bank.setBankServices(Set.of(BankServices.ACCOUNTS, BankServices.LOANS));
 
         byte opt;

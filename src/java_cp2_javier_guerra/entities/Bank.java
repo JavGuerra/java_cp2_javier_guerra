@@ -3,22 +3,23 @@ package java_cp2_javier_guerra.entities;
 import java_cp2_javier_guerra.entities.enums.BankServices;
 
 import java.util.HashSet;
-import java.util.Objects;
 import java.util.Set;
 
 public final class Bank {
 
     private Long id;
     private String name;
+    private String slogan;
     private String nif;
     private Long addressId;
     private Set<BankServices> bankServices = new HashSet<>();
 
     public Bank() {}
 
-    public Bank(Long id, String name, String nif, Long addressId) {
+    public Bank(Long id, String name, String slogan, String nif, Long addressId) {
         setId(id);
         setName(name);
+        setSlogan(slogan);
         setNif(nif);
         setAddressId(addressId);
     }
@@ -37,6 +38,14 @@ public final class Bank {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getSlogan() {
+        return slogan;
+    }
+
+    public void setSlogan(String slogan) {
+        this.slogan = slogan;
     }
 
     public String getNif() {
@@ -64,22 +73,10 @@ public final class Bank {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Bank bank = (Bank) o;
-        return id.equals(bank.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id);
-    }
-
-    @Override
     public String toString() {
-        StringBuilder str = new StringBuilder("Banco «" + name + "», " + nif + " Servicios:");
-        for (BankServices bankService : bankServices) str.append(" ").append(bankService.getName());
+        StringBuilder str = new StringBuilder("Banco: " + name + " «" + slogan + "», CIF: " + nif + "\nServicios:");
+        if (bankServices.size() > 0)
+            for (BankServices bankService : bankServices) str.append(" ").append(bankService.getName());
         return str.toString();
     }
 }

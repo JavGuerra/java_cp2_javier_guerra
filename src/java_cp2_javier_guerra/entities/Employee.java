@@ -1,5 +1,6 @@
 package java_cp2_javier_guerra.entities;
 
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 public class Employee {
@@ -8,6 +9,9 @@ public class Employee {
     private String name;
     private String nif;
     private Long addressId;
+    private Boolean active = true;
+    private LocalDateTime entryDate = null;
+    private LocalDateTime endDate = null;
 
     Employee() {}
 
@@ -16,6 +20,7 @@ public class Employee {
         setName(name);
         setNif(nif);
         setAddressId(addressId);
+        setEntryDate(LocalDateTime.now());
     }
 
     public Long getId() {
@@ -44,6 +49,30 @@ public class Employee {
 
     public Long getAddressId() {
         return addressId;
+    }
+
+    public Boolean getActive() {
+        return active;
+    }
+
+    public void setActive(Boolean active) {
+        this.active = active;
+    }
+
+    public LocalDateTime getEntryDate() {
+        return entryDate;
+    }
+
+    public void setEntryDate(LocalDateTime entryDate) {
+        this.entryDate = entryDate;
+    }
+
+    public LocalDateTime getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(LocalDateTime endDate) {
+        this.endDate = endDate;
     }
 
     public void setAddressId(Long addressId) {

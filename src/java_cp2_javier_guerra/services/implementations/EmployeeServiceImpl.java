@@ -8,7 +8,7 @@ import java.util.*;
 
 public class EmployeeServiceImpl implements IEmployeeService {
 
-    private final Map<Long, Employee> employees = new EmployeeRepository().getEmployees();
+    private final Map<Long, Employee> employees = new EmployeeRepository(true).getEmployees();
 
     @Override
     public Optional<Employee> addEmployee(Employee employee) {

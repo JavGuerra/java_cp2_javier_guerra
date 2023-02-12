@@ -41,13 +41,28 @@ public enum BankAccountType {
     }
 
     /**
-     * Devuelve una lista numerada de los tipos de cuenta disponibles
-     * @return Lista numera de tipos de cuenta
+     * Devuelve una lista numerada de los tipos de cuenta disponibles.
+     * @return Lista numera de tipos de cuenta.
      */
     public static String getBankAccountTypeList() {
         StringBuilder str = new StringBuilder();
         for (BankAccountType type : BankAccountType.values())
             str.append(" (").append(type.ordinal() + 1).append(") ").append(type.getName());
+        return str.toString();
+    }
+
+    /**
+     * Devuelve una lista numerada de los tipos de cuenta disponibles excepto el indicado.
+     * @param accountType tipo indicado.
+     * @return Lista numera de tipos de cuenta.
+     */
+    public static String getBankAccountTypeListExceptOne(BankAccountType accountType) {
+        StringBuilder str = new StringBuilder();
+        if (accountType != null) {
+            for (BankAccountType type : BankAccountType.values())
+                if (!type.getName().equals(accountType.getName()))
+                    str.append(" (").append(type.ordinal() + 1).append(") ").append(type.getName());
+        }
         return str.toString();
     }
 }

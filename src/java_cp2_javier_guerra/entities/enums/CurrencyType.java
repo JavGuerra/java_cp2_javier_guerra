@@ -33,4 +33,15 @@ public enum CurrencyType {
     public void setUsdExchange(Double usdExchange) {
         this.usdExchange = usdExchange;
     }
+
+    /**
+     * Devuelve una lista numerada de los tipos de moneda disponibles.
+     * @return Lista numera de tipos de moneda.
+     */
+    public static String getCurrencyTypeList() {
+        StringBuilder str = new StringBuilder();
+        for (CurrencyType type : CurrencyType.values())
+            str.append(" (").append(type.ordinal() + 1).append(") ").append(type);
+        return str.toString();
+    }
 }

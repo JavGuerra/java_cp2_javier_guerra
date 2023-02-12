@@ -69,6 +69,7 @@ Se considera que hay un único banco, y todos los servicios son suyos.
 - Validar Nif del banco, correos y dni
 - Generar ID automático en entidades
 - Si no existe cuenta/usuario/dirección ¿pedir crearla?
+- ¿Añadir opción de pedir un préstamo?
 
 Se incluye `CHANGELOG.md` con los cambios de versión.
 

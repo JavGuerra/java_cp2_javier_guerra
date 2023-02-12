@@ -21,6 +21,12 @@ public class CustomerServiceImpl implements ICustomerService {
     }
 
     @Override
+    public Optional<Customer> getCustomerById(Long id) {
+        if (id != null && id >= 0) return Optional.ofNullable(customers.get(id));
+        return Optional.empty();
+    }
+
+    @Override
     public Optional<Customer> getCustomerByNif(String nif) {
         if (nif != null && !nif.equals("")) {
             for (Customer customer : customers.values())

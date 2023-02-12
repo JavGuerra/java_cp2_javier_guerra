@@ -72,6 +72,10 @@ public class Account {
         this.currencies = currencies;
     }
 
+    public void setCurrency(CurrencyType currency) {
+        currencies.add(currency);
+    }
+
     public Long getIdCustomer() {
         return idCustomer;
     }
@@ -127,7 +131,7 @@ public class Account {
 
     @Override
     public String toString() {
-        return "ID: " + id + ", ID usuario: " + idCustomer +
-                ", Saldo: " + amount + ", Cuenta: " + type + ", Activa: " + (active ? "Sí" : "No");
+        return "ID: " + id + ", ID usuario: " +  idCustomer + ", Saldo: " + amount + ", Cuenta: " + type +
+                ", Monedas: " + currencies + ", Activa: " + (active ? "Sí" : "No");
     }
 }

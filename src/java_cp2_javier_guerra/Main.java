@@ -20,6 +20,7 @@ public class Main {
         bank.setBankServices(Set.of(BankServices.ACCOUNTS, BankServices.LOANS));
 
         byte opt;
+
         String menu = """
                    ┌───────────────────────────────┐
               Opc. │   Menú de cuentas bancarias   │

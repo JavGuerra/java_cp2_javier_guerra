@@ -53,13 +53,38 @@ public class AccountServiceImpl implements IAccountService {
     }
 
     @Override
-    public Optional<Account> createAccount(Long id, Double amount, BankAccountType type, Set<CurrencyType> currencies, Long idCustomer, Long idCreationEmployee) {
-        return null;
+    public List<Account> getAllAccountsByCurrency(byte numType) {
+        List<Account> listAccounts =  new ArrayList<>();
+        if (numType >= 1 && numType <= CurrencyType.values().length) {
+            CurrencyType type = CurrencyType.values()[--numType];
+            for (Account account : accounts.values()) {
+                for (CurrencyType currency : account.getCurrencies()) {
+                    if (currency == type) {
+                        listAccounts.add(account);
+                        break;
+                    }
+                }
+            }
+        }
+        return listAccounts;
     }
 
-    @Override
-    public Optional<Account> updateAccount(Account account) {
-        return null;
+    public boolean thereIsCurrency(Long id, byte numType) {
+        boolean thereIsCurrency = false;
+        if (id > 0 && numType >= 0 && numType <= CurrencyType.values().length - 1) {
+            CurrencyType currencyType =  CurrencyType.values()[numType];
+            Optional<Account> optAccount = getAccountById(id);
+            if (optAccount.isPresent()) {
+                Account account = optAccount.get();
+                for (CurrencyType type : account.getCurrencies()) {
+                    if (type == currencyType) {
+                        thereIsCurrency = true;
+                        break;
+                    }
+                }
+            }
+        }
+        return thereIsCurrency;
     }
 
     @Override

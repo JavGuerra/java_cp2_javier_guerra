@@ -21,6 +21,13 @@ public interface ICustomerService {
     List<Customer> getAllCustomers();
 
     /**
+     * Obtiene un cliente por su ID.
+     * @param id del cliente.
+     * @return opcionalmente, cliente o null.
+     */
+    Optional<Customer> getCustomerById(Long id);
+
+    /**
      * Obtiene un cliente por su NIF.
      * @param nif del cliente.
      * @return opcionalmente, cliente o null.

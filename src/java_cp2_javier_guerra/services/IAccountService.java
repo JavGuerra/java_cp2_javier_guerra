@@ -52,23 +52,19 @@ public interface IAccountService {
     List<Account> getAllAccountsByType(byte numType);
 
     /**
-     * Crea un nuevo objeto cuenta bancaria y lo almacena en base de datos.
-     * @param id de la cuenta.
-     * @param amount saldo inicial de la cuenta.
-     * @param type tipo de cuenta
-     * @param currencies monedas
-     * @param idCustomer id del cliente
-     * @param idCreationEmployee id del empleado que abrió la cuenta.
-     * @return opcionalmente, la nueva cuenta bancaria.
+     * Obtiene una lista de cuentas bancarias que soportan una moneda determinada.
+     * @param numType tipo de moneda.
+     * @return cuentas bancarias o una lista vacía si no hay.
      */
-    Optional<Account> createAccount(Long id, Double amount, BankAccountType type, Set<CurrencyType> currencies, Long idCustomer, Long idCreationEmployee);
+    List<Account> getAllAccountsByCurrency(byte numType);
 
     /**
-     * Actualiza los datos de una cuenta bancaria.
-     * @param account la cuenta bancaria a actualizar.
-     * @return opcionalmente, la cuenta bancaria actualizada.
+     * Comprueba si la cuenta bancaria soporta un tipo de moneda determinado.
+     * @param id de la cuenta bancaria.
+     * @param numType tipo de moneda.
+     * @return true si soporta la moneda, false en caso contrario.
      */
-    Optional<Account> updateAccount(Account account);
+    boolean thereIsCurrency(Long id, byte numType);
 
     /**
      * Incrementa el saldo de la cuenta bancaria.

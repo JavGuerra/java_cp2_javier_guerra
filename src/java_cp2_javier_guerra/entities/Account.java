@@ -76,6 +76,10 @@ public class Account {
         currencies.add(currency);
     }
 
+    public void removeCurrency(CurrencyType currency) {
+        currencies.remove(currency);
+    }
+
     public Long getIdCustomer() {
         return idCustomer;
     }
@@ -131,7 +135,7 @@ public class Account {
 
     @Override
     public String toString() {
-        return "ID: " + id + ", ID usuario: " +  idCustomer + ", Saldo: " + amount + ", Cuenta: " + type +
-                ", Monedas: " + currencies + ", Activa: " + (active ? "Sí" : "No");
+        return "ID: " + id + ", ID usuario: " +  idCustomer + ", Saldo: " + amount + ", Tipo: " + type.getName() +
+                ", Moneda(s): " + currencies + ", Activa: " + (active ? "Sí" : "No");
     }
 }

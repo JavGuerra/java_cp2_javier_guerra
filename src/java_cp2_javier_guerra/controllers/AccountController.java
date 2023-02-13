@@ -92,10 +92,11 @@ public abstract class AccountController {
         title("Buscar las cuentas por una moneda soportada");
 
         if (thereAreAccounts) {
+            var currencies = CurrencyType.values();
             String msg = "Elija tipo:" + getCurrencyTypeList() + ": ";
-            byte pos = getLongIntPosByRange(msg, 1L, (long) CurrencyType.values().length).byteValue();
+            byte pos = getLongIntPosByRange(msg, 1L, (long) currencies.length).byteValue();
             if (pos > 0) {
-                System.out.println("Cuentas que soportan la moneda: " + CurrencyType.values()[pos -1].getName());
+                System.out.println("Cuentas que soportan la moneda: " + currencies[pos -1].getName());
                 List<Account> accounts = accountService.getAllAccountsByCurrency(pos);
                 if (!accounts.isEmpty()) {
                     accounts.forEach(System.out::println);
@@ -129,50 +130,29 @@ public abstract class AccountController {
     }
 
     /**
-     * Incrementa el saldo de una cuenta bancaria con un determinado id de cuenta.
+     * Incrementa o decrementa el saldo de una cuenta bancaria con un determinado id de cuenta.
+     * @param mode true ingresar, false retirar.
      */
-    public static void increaseAccountBalanceById() {
-        title("Incrementar el saldo de una cuenta por su id");
+    public static void insertOrRemoveAccountBalanceById(Boolean mode) {
+        title((mode ? "Incrementar el" : "Retirar") + " saldo de una cuenta por su id");
 
         if (thereAreAccounts) {
+            String strMode = mode ? "ingresar" : "retirar";
             Long id = getLongIntPos("Introduzca el ID de la cuenta: ");
             Optional<Account> optAccount = accountService.getAccountById(id);
             if (optAccount.isPresent()) {
                 Account account = optAccount.get();
                 System.out.println("Saldo actual: " + account.getAmount());
 
-                double amount = getLongIntPos("Introduzca la cantidad a ingresar: ").doubleValue();
-                if (amount > 0)
-                    System.out.println(accountService.incrementAccountAmount(id, amount)
+                double amount = getLongIntPos("Introduzca la cantidad a " + strMode + ": ").doubleValue();
+                if (amount > 0) {
+                    boolean success = mode
+                            ? accountService.incrementAccountAmount(id, amount)
+                            : accountService.decrementAccountAmount(id, amount);
+                    System.out.println(success
                             ? "Nuevo saldo: " + account.getAmount()
-                            : "No ha sido posible ingresar la cantidad.");
-                else System.out.println("Nada que ingresar.");
-
-            } else System.out.println("No se ha encontrado la cuenta.");
-        } else System.out.println("No hay cuentas bancarias.");
-    }
-
-    /**
-     * Decrementa el saldo de una cuenta bancaria con un determinado id de cuenta, si es posible.
-     */
-    public static void decrementAccountBalanceById() {
-        title("Retirar saldo de una cuenta por su id");
-
-        if (thereAreAccounts) {
-            Long id = getLongIntPos("Introduzca el ID de la cuenta: ");
-            Optional<Account> optAccount = accountService.getAccountById(id);
-            if (optAccount.isPresent()) {
-                Account account = optAccount.get();
-                System.out.println("Saldo actual: " + account.getAmount());
-
-                double amount = getLongIntPos("Introduzca la cantidad a retirar: ").doubleValue();
-                if (amount > 0)
-                    if (amount <= account.getAmount())
-                        System.out.println(accountService.decrementAccountAmount(id, amount)
-                                ? "Nuevo saldo: " + account.getAmount()
-                                : "No ha sido posible retirar la cantidad.");
-                    else System.out.println("Saldo insuficiente para retirar.");
-                else System.out.println("Nada que retirar.");
+                            : "No ha sido posible " + strMode + " la cantidad.");
+                } else System.out.println("Nada que " + strMode + ".");
 
             } else System.out.println("No se ha encontrado la cuenta.");
         } else System.out.println("No hay cuentas bancarias.");
@@ -191,7 +171,7 @@ public abstract class AccountController {
             if (optAccount.isPresent()) {
                 Account account = optAccount.get();
 
-                System.out.println("Cambiar: (1) propietario (2) saldo (3) tipo (4) moneda (5) estado.");
+                System.out.println("Cambiar: (1) propietario, (2) saldo, (3) tipo, (4) moneda, (5) estado.");
                 byte opt = getLongIntPosByRange("¿Qué cambio desea realizar? ",1L, 5L).byteValue();
 
                 switch (opt) {
@@ -258,6 +238,7 @@ public abstract class AccountController {
                     case 4 -> {
                         System.out.println("Cambiar un tipo de moneda.");
                         byte mode;
+                        var currencies = CurrencyType.values();
                         if (account.getCurrencies().size() > 0) {
                             System.out.println("Monedas soportadas: " + account.getCurrencies());
                             mode = getLongIntPosByRange("¿Desea (1) añadir o (2) quitar una moneda?: ", 1L, 2L).byteValue();
@@ -266,19 +247,18 @@ public abstract class AccountController {
                             mode = 2;
                         }
                         String msg = "Elija tipo:" + getCurrencyTypeList() + ": ";
-                        byte pos = getLongIntPosByRange(msg, 1L, (long) CurrencyType.values().length).byteValue();
+                        byte pos = getLongIntPosByRange(msg, 1L, (long) currencies.length).byteValue();
                         if (pos > 0) {
                             --pos;
                             if (mode == 1) {
                                 if (!accountService.currencyExist(account.getId(), pos)) {
-                                    account.setCurrency(CurrencyType.values()[pos]);
-                                    System.out.println("Añadida la moneda: " + CurrencyType.values()[pos].getName());
+                                    account.setCurrency(currencies[pos]);
+                                    System.out.println("Se ha añadido la moneda: " + currencies[pos].getName());
                                 } else System.out.println("La moneda ya está soportada.");
                             } else {
                                 if (accountService.currencyExist(account.getId(), pos)) {
-
-                                    // TODO Quitar moneda
-
+                                    account.removeCurrency(currencies[pos]);
+                                    System.out.println("Se ha quitado la moneda: " + currencies[pos].getName());
                                 } else System.out.println("La moneda no está soportada.");
                             }
                         }

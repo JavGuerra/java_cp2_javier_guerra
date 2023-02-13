@@ -2,9 +2,9 @@ package java_cp2_javier_guerra.entities.enums;
 
 public enum BankAccountType {
 
-    SAVING("ahorro", 1d, 10d),
-    BUSINESS("empresa", 2d, 10d),
-    INVESTMENT("inversión", 3d, 10d);
+    SAVING("Ahorro", 1d, 10d),
+    BUSINESS("Empresa", 2d, 10d),
+    INVESTMENT("Inversión", 3d, 10d);
 
     private String name;
     private double cost;

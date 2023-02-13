@@ -207,7 +207,7 @@ public abstract class AccountController {
                                         break;
 
                                     }
-                                    System.out.println("No se ha encontrado el cliente.");
+                                    System.out.println("No se ha encontrado el nuevo cliente.");
                                 }
 
                             } else System.out.println("No se ha encontrado el cliente.");

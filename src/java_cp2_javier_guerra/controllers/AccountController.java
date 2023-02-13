@@ -151,8 +151,8 @@ public abstract class AccountController {
             Optional<Account> optAccount = accountService.getAccountById(id);
             if (optAccount.isPresent()) {
                 Account account = optAccount.get();
-                System.out.println("Saldo actual: " + account.getAmount());
 
+                System.out.println("Saldo actual: " + account.getAmount());
                 double amount = getLongIntPos("Introduzca la cantidad a " + strMode + ": ").doubleValue();
                 if (amount > 0) {
                     boolean success = mode
@@ -181,12 +181,12 @@ public abstract class AccountController {
                 Account account = optAccount.get();
 
                 System.out.println("Cambiar: (1) propietario, (2) saldo, (3) tipo, (4) moneda, (5) estado.");
-                byte opt = getLongIntPosByRange("¿Qué cambio desea realizar? ",1L, 5L).byteValue();
-
+                byte opt = getLongIntPosByRange("¿Qué opción desea? ",1L, 5L).byteValue();
                 switch (opt) {
 
                     case 1 -> {
                         System.out.println("Cambiar el propietario de la cuenta.");
+
                         if (customerService.getAllCustomers().size() > 1) {
                             Optional<Customer> optCustomer = customerService.getCustomerById(account.getIdCustomer());
                             if (optCustomer.isPresent()) {
@@ -214,7 +214,6 @@ public abstract class AccountController {
                                         account.setIdCustomer(newId);
                                         System.out.println("Nuevo propietario ID: " + newId + ", nombre: " + newCustomer.getName());
                                         break;
-
                                     }
                                     System.out.println("No se ha encontrado el nuevo cliente.");
                                 }
@@ -225,8 +224,10 @@ public abstract class AccountController {
 
                     case 2 -> {
                         System.out.println("Cambiar el saldo de la cuenta.");
+
                         System.out.println("Saldo actual: " + account.getAmount());
                         double amount = getLongIntPos("Introduzca la cantidad: ").doubleValue();
+
                         if (amount > 0) {
                             account.setAmount(amount);
                             System.out.println("Nuevo saldo: " + account.getAmount());
@@ -235,9 +236,11 @@ public abstract class AccountController {
 
                     case 3 -> {
                         System.out.println("Cambiar el tipo de cuenta.");
+
                         System.out.println("Tipo de cuenta actual: (" + (account.getType().ordinal() + 1) + ") " + account.getType().getName());
                         String msg = "Elija nuevo tipo:" + getBankAccountTypeListExceptOne(account.getType()) + ": ";
                         byte pos = getLongIntPosByRange(msg, 1L, (long) BankAccountType.values().length).byteValue();
+
                         if (pos - 1 != account.getType().ordinal()) {
                             account.setType(BankAccountType.values()[pos - 1]);
                             System.out.println("Nuevo tipo de cuenta: " + account.getType().getName());
@@ -246,26 +249,28 @@ public abstract class AccountController {
 
                     case 4 -> {
                         System.out.println("Cambiar un tipo de moneda.");
-                        byte mode;
+
+                        byte mode = 2;
                         var currencies = CurrencyType.values();
+
                         if (account.getCurrencies().size() > 0) {
                             System.out.println("Monedas soportadas: " + account.getCurrencies());
                             mode = getLongIntPosByRange("¿Desea (1) añadir o (2) quitar una moneda?: ", 1L, 2L).byteValue();
-                        } else {
-                            System.out.println("La cuenta no tiene monedas soportadas. Añada una.");
-                            mode = 2;
-                        }
+                        } else System.out.println("La cuenta no tiene monedas soportadas. Añada una.");
+
                         String msg = "Elija tipo:" + getCurrencyTypeList() + ": ";
                         byte pos = getLongIntPosByRange(msg, 1L, (long) currencies.length).byteValue();
+
                         if (pos > 0) {
                             --pos;
+                            boolean currencyExist = accountService.currencyExist(account.getId(), pos);
                             if (mode == 1) {
-                                if (!accountService.currencyExist(account.getId(), pos)) {
+                                if (!currencyExist) {
                                     account.setCurrency(currencies[pos]);
                                     System.out.println("Se ha añadido la moneda: " + currencies[pos].getName());
                                 } else System.out.println("La moneda ya está soportada.");
                             } else {
-                                if (accountService.currencyExist(account.getId(), pos)) {
+                                if (currencyExist) {
                                     account.removeCurrency(currencies[pos]);
                                     System.out.println("Se ha quitado la moneda: " + currencies[pos].getName());
                                 } else System.out.println("La moneda no está soportada.");
@@ -275,6 +280,7 @@ public abstract class AccountController {
 
                     case 5 -> {
                         System.out.println("Cambiar el estado (" + (account.isActive() ? "activo" : "inactivo") + ") de la cuenta.");
+
                         if (getYesNo("¿Desea confirmar el cambio de estado? (S/N): ")) {
                             account.setActive(!account.isActive());
                             System.out.println("La cuenta ahora está: " + (account.isActive() ? "activa" : "inactiva"));

@@ -26,16 +26,16 @@ public class LoanServiceImpl implements ILoanService {
 
     @Override
     public boolean loanExistById(Long accountId) {
-        boolean thereIsLoan = false;
+        boolean loanExist = false;
         if (accountId != null && accountId > 0) {
             for (Loan loan : loans.values()) {
                 if (loan.getAccountId().equals(accountId)) {
-                    thereIsLoan = true;
+                    loanExist = true;
                     break;
                 }
             }
         }
-        return thereIsLoan;
+        return loanExist;
     }
 
     @Override

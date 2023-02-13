@@ -21,7 +21,16 @@ public abstract class AccountController {
     private static final ICustomerService customerService = new CustomerServiceImpl();
     private static final ILoanService loanService = new LoanServiceImpl();
 
-    private static final Boolean thereAreAccounts = accountService.getAllAccounts().size() > 0;
+    /**
+     * Comprueba si hay cuentas bancarias. Si no las hay, muestra un mensaje.
+     * @return true si hay cuentas bancarias, false en caso contrario.
+     */
+    private static boolean thereAreAccounts() {
+        boolean thereAreAccounts = false;
+        if (accountService.getAllAccounts().size() > 0) thereAreAccounts = true;
+        else System.out.println("No hay cuentas bancarias.");
+        return thereAreAccounts;
+    }
 
     /**
      * Lista todas las cuentas bancarias disponibles (activas o no).
@@ -29,11 +38,11 @@ public abstract class AccountController {
     public static void showAccountList() {
         title("Listar todas las cuentas");
 
-        if (thereAreAccounts) {
+        if (thereAreAccounts()) {
             List<Account> accounts = accountService.getAllAccounts();
             accounts.forEach(System.out::println);
             System.out.println("Total: " + accounts.size() + (accounts.size() > 1 ? " cuentas." : " cuenta."));
-        } else System.out.println("No hay cuentas bancarias.");
+        }
     }
 
     /**
@@ -42,11 +51,11 @@ public abstract class AccountController {
     public static void showAccountById() {
         title("Buscar una cuenta por su id");
 
-        if (thereAreAccounts) {
+        if (thereAreAccounts()) {
             Long id = getLongIntPos("Introduzca el ID de la cuenta: ");
             Optional<Account> account = accountService.getAccountById(id);
             System.out.println(account.isPresent() ? account.get() : "No se ha encontrado la cuenta.");
-        } else System.out.println("No hay cuentas bancarias.");
+        }
     }
 
     /**
@@ -55,14 +64,14 @@ public abstract class AccountController {
     public static void showAccountByUserNIF() {
         title("Buscar una cuenta por el NIF del usuario");
 
-        if (thereAreAccounts) {
+        if (thereAreAccounts()) {
             String nif = getWord("Introduzca el NIF del usuario: ");
             Optional<Customer> customer = customerService.getCustomerByNif(nif);
             if (customer.isPresent()) {
                 Optional<Account> account = accountService.getAccountByCustomerId(customer.get().getId());
                 System.out.println(account.isPresent() ? account.get() : "No se ha encontrado la cuenta.");
             } else System.out.println("No se ha encontrado el usuario.");
-        } else System.out.println("No hay cuentas bancarias.");
+        }
     }
 
     /**
@@ -71,7 +80,7 @@ public abstract class AccountController {
     public static void showAccountsByType() {
         title("Buscar las cuentas por el tipo de cuenta");
 
-        if (thereAreAccounts) {
+        if (thereAreAccounts()) {
             String msg = "Elija tipo:" + getBankAccountTypeList() + ": ";
             byte pos = getLongIntPosByRange(msg, 1L, (long) BankAccountType.values().length).byteValue();
             if (pos > 0) {
@@ -82,7 +91,7 @@ public abstract class AccountController {
                     System.out.println("Total: " + accounts.size() + (accounts.size() > 1 ? " cuentas." : " cuenta."));
                 } else System.out.println("No hay cuentas de ese tipo.");
             }
-        } else System.out.println("No hay cuentas bancarias.");
+        }
     }
 
     /**
@@ -91,7 +100,7 @@ public abstract class AccountController {
     public static void showAccountsByCurrency() {
         title("Buscar las cuentas por una moneda soportada");
 
-        if (thereAreAccounts) {
+        if (thereAreAccounts()) {
             var currencies = CurrencyType.values();
             String msg = "Elija tipo:" + getCurrencyTypeList() + ": ";
             byte pos = getLongIntPosByRange(msg, 1L, (long) currencies.length).byteValue();
@@ -103,7 +112,7 @@ public abstract class AccountController {
                     System.out.println("Total: " + accounts.size() + (accounts.size() > 1 ? " cuentas." : " cuenta."));
                 } else System.out.println("No hay cuentas que soporten esa moneda.");
             }
-        } else System.out.println("No hay cuentas bancarias.");
+        }
     }
 
     /**
@@ -113,9 +122,9 @@ public abstract class AccountController {
     public static void showAccountTypeAndItsAccounts() {
         title("Listar un tipo de cuenta y cuentas relacionadas");
 
-        if (thereAreAccounts) {
+        if (thereAreAccounts()) {
             //
-        } else System.out.println("No hay cuentas bancarias.");
+        }
     }
 
     /**
@@ -124,9 +133,9 @@ public abstract class AccountController {
     public static void createNewAccount() {
         title("Crear una nueva cuenta");
 
-        if (thereAreAccounts) {
+        if (thereAreAccounts()) {
            //
-        } else System.out.println("No hay cuentas bancarias.");
+        }
     }
 
     /**
@@ -136,7 +145,7 @@ public abstract class AccountController {
     public static void insertOrRemoveAccountBalanceById(Boolean mode) {
         title((mode ? "Incrementar el" : "Retirar") + " saldo de una cuenta por su id");
 
-        if (thereAreAccounts) {
+        if (thereAreAccounts()) {
             String strMode = mode ? "ingresar" : "retirar";
             Long id = getLongIntPos("Introduzca el ID de la cuenta: ");
             Optional<Account> optAccount = accountService.getAccountById(id);
@@ -155,7 +164,7 @@ public abstract class AccountController {
                 } else System.out.println("Nada que " + strMode + ".");
 
             } else System.out.println("No se ha encontrado la cuenta.");
-        } else System.out.println("No hay cuentas bancarias.");
+        }
     }
 
     /**
@@ -165,7 +174,7 @@ public abstract class AccountController {
     public static void updateAccountById() {
         title("Actualizar una cuenta por su id");
 
-        if (thereAreAccounts) {
+        if (thereAreAccounts()) {
             Long id = getLongIntPos("Introduzca el ID de la cuenta: ");
             Optional<Account> optAccount = accountService.getAccountById(id);
             if (optAccount.isPresent()) {
@@ -272,9 +281,8 @@ public abstract class AccountController {
                         } else System.out.println("Cambio de estado cancelado.");
                     }
                 }
-
             } else System.out.println("No se ha encontrado la cuenta.");
-        } else System.out.println("No hay cuentas bancarias.");
+        }
     }
 
     /**
@@ -283,7 +291,7 @@ public abstract class AccountController {
     public static void deleteAccountById() {
         title("Borrar una cuenta por su id");
 
-        if (thereAreAccounts) {
+        if (thereAreAccounts()) {
             Long id = getLongIntPos("Introduzca el ID de la cuenta: ");
             if (accountService.accountExistById(id)) {
                 if (!loanService.loanExistById(id)) {
@@ -296,7 +304,7 @@ public abstract class AccountController {
 
                 } else System.out.println("No es posible borrar la cuenta.\nHay un préstamo asociado.");
             } else System.out.println("No se ha encontrado la cuenta.");
-        } else System.out.println("No hay cuentas bancarias.");
+        }
     }
 
     /**
@@ -305,7 +313,7 @@ public abstract class AccountController {
     public static void transferBalanceFromAccountToAnotherById() {
         title("Transferir saldo entre dos cuentas por sus id");
 
-        if (thereAreAccounts) {
+        if (thereAreAccounts()) {
             Long id1 = getLongIntPos("Introduzca el ID de la cuenta de origen: ");
             Optional<Account> optAccount1 = accountService.getAccountById(id1);
             if (optAccount1.isPresent()) {
@@ -334,6 +342,6 @@ public abstract class AccountController {
                     } else System.out.println("Saldo insuficiente para transferir.");
                 } else System.out.println("Nada que transferir.");
             } else System.out.println("No se ha encontrado la cuenta de origen.");
-        } else System.out.println("No hay cuentas bancarias.");
+        }
     }
 }

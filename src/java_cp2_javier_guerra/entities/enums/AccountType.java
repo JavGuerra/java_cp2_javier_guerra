@@ -1,6 +1,6 @@
 package java_cp2_javier_guerra.entities.enums;
 
-public enum BankAccountType {
+public enum AccountType {
 
     SAVING("Ahorro", 1d, 10d),
     BUSINESS("Empresa", 2d, 10d),
@@ -10,7 +10,7 @@ public enum BankAccountType {
     private double cost;
     private double reward;
 
-    BankAccountType(String name, double cost, double reward) {
+    AccountType(String name, double cost, double reward) {
         setName(name);
         setCost(cost);
         setReward(reward);
@@ -46,7 +46,7 @@ public enum BankAccountType {
      */
     public static String getBankAccountTypeList() {
         StringBuilder str = new StringBuilder();
-        for (BankAccountType type : BankAccountType.values())
+        for (AccountType type : AccountType.values())
             str.append(" (").append(type.ordinal() + 1).append(") ").append(type.getName());
         return str.toString();
     }
@@ -56,10 +56,10 @@ public enum BankAccountType {
      * @param accountType tipo indicado.
      * @return Lista numera de tipos de cuenta.
      */
-    public static String getBankAccountTypeListExceptOne(BankAccountType accountType) {
+    public static String getBankAccountTypeListExceptOne(AccountType accountType) {
         StringBuilder str = new StringBuilder();
         if (accountType != null) {
-            for (BankAccountType type : BankAccountType.values())
+            for (AccountType type : AccountType.values())
                 if (!type.getName().equals(accountType.getName()))
                     str.append(" (").append(type.ordinal() + 1).append(") ").append(type.getName());
         }

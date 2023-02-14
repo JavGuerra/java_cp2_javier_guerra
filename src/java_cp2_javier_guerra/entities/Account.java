@@ -1,6 +1,6 @@
 package java_cp2_javier_guerra.entities;
 
-import java_cp2_javier_guerra.entities.enums.BankAccountType;
+import java_cp2_javier_guerra.entities.enums.AccountType;
 import java_cp2_javier_guerra.entities.enums.CurrencyType;
 
 import java.time.LocalDateTime;
@@ -12,7 +12,7 @@ public class Account {
 
     private Long id;
     private Double amount = 0d;
-    private BankAccountType type;
+    private AccountType type;
     private Set<CurrencyType> currencies = new HashSet<>();
     private Long idCustomer;
     private Long idCreationEmployee;
@@ -22,7 +22,7 @@ public class Account {
 
     public Account() {}
 
-    public Account(Long id, Double amount, BankAccountType type, Set<CurrencyType> currencies, Long idCustomer, Long idCreationEmployee) {
+    public Account(Long id, Double amount, AccountType type, Set<CurrencyType> currencies, Long idCustomer, Long idCreationEmployee) {
         setId(id);
         setAmount(amount);
         setType(type);
@@ -56,11 +56,11 @@ public class Account {
         if (amount > 0 && this.amount >= amount) this.amount -= amount;
     }
 
-    public BankAccountType getType() {
+    public AccountType getType() {
         return type;
     }
 
-    public void setType(BankAccountType type) {
+    public void setType(AccountType type) {
         this.type = type;
     }
 

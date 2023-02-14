@@ -6,9 +6,11 @@ import java_cp2_javier_guerra.services.*;
 import java_cp2_javier_guerra.services.implementations.*;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 
-import static java_cp2_javier_guerra.entities.enums.BankAccountType.*;
+import static java_cp2_javier_guerra.entities.enums.AccountType.*;
 import static java_cp2_javier_guerra.entities.enums.CurrencyType.*;
 import static java_cp2_javier_guerra.utils.ConsoleInput.*;
 
@@ -82,9 +84,9 @@ public abstract class AccountController {
 
         if (thereAreAccounts()) {
             String msg = "Elija tipo:" + getBankAccountTypeList() + ": ";
-            byte pos = getLongIntPosByRange(msg, 1L, (long) BankAccountType.values().length).byteValue();
+            byte pos = getLongIntPosByRange(msg, 1L, (long) AccountType.values().length).byteValue();
             if (pos > 0) {
-                System.out.println("Cuentas del tipo: " + BankAccountType.values()[pos -1].getName());
+                System.out.println("Cuentas del tipo: " + AccountType.values()[pos -1].getName());
                 List<Account> accounts = accountService.getAllAccountsByType(pos);
                 if (!accounts.isEmpty()) {
                     accounts.forEach(System.out::println);
@@ -123,7 +125,11 @@ public abstract class AccountController {
         title("Listar un tipo de cuenta y cuentas relacionadas");
 
         if (thereAreAccounts()) {
-            //
+            Map<AccountType, Set<Account>> AccountTypesAndItsAccounts = accountService.getAccountTypesAndItsAccounts();
+            for (AccountType type : AccountTypesAndItsAccounts.keySet()) {
+                System.out.println(type.getName() + ":");
+                for (Account account : AccountTypesAndItsAccounts.get(type)) System.out.println(account);
+            }
         }
     }
 
@@ -142,7 +148,7 @@ public abstract class AccountController {
      * Incrementa o decrementa el saldo de una cuenta bancaria con un determinado id de cuenta.
      * @param mode true ingresar, false retirar.
      */
-    public static void insertOrRemoveAccountBalanceById(Boolean mode) {
+    public static void incrementOrDecrementAccountBalanceById(Boolean mode) {
         title((mode ? "Incrementar el" : "Retirar") + " saldo de una cuenta por su id");
 
         if (thereAreAccounts()) {
@@ -155,10 +161,7 @@ public abstract class AccountController {
                 System.out.println("Saldo actual: " + account.getAmount());
                 double amount = getLongIntPos("Introduzca la cantidad a " + strMode + ": ").doubleValue();
                 if (amount > 0) {
-                    boolean success = mode
-                            ? accountService.incrementAccountAmount(id, amount)
-                            : accountService.decrementAccountAmount(id, amount);
-                    System.out.println(success
+                    System.out.println(accountService.incrementOrDecrementAccountAmount(id, amount, mode)
                             ? "Nuevo saldo: " + account.getAmount()
                             : "No ha sido posible " + strMode + " la cantidad.");
                 } else System.out.println("Nada que " + strMode + ".");
@@ -239,10 +242,10 @@ public abstract class AccountController {
 
                         System.out.println("Tipo de cuenta actual: (" + (account.getType().ordinal() + 1) + ") " + account.getType().getName());
                         String msg = "Elija nuevo tipo:" + getBankAccountTypeListExceptOne(account.getType()) + ": ";
-                        byte pos = getLongIntPosByRange(msg, 1L, (long) BankAccountType.values().length).byteValue();
+                        byte pos = getLongIntPosByRange(msg, 1L, (long) AccountType.values().length).byteValue();
 
                         if (pos - 1 != account.getType().ordinal()) {
-                            account.setType(BankAccountType.values()[pos - 1]);
+                            account.setType(AccountType.values()[pos - 1]);
                             System.out.println("Nuevo tipo de cuenta: " + account.getType().getName());
                         } else System.out.println("Nada que cambiar.");
                     }

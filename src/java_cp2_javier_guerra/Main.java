@@ -57,8 +57,8 @@ public class Main {
                 case  5 -> showAccountsByCurrency();
                 case  6 -> showAccountTypeAndItsAccounts();
                 case  7 -> createNewAccount();
-                case  8 -> insertOrRemoveAccountBalanceById(true);
-                case  9 -> insertOrRemoveAccountBalanceById(false);
+                case  8 -> incrementOrDecrementAccountBalanceById(true);
+                case  9 -> incrementOrDecrementAccountBalanceById(false);
                 case 10 -> updateAccountById();
                 case 11 -> deleteAccountById();
                 case 12 -> transferBalanceFromAccountToAnotherById();

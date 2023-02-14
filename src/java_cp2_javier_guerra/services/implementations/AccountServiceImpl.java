@@ -1,7 +1,7 @@
 package java_cp2_javier_guerra.services.implementations;
 
 import java_cp2_javier_guerra.entities.Account;
-import java_cp2_javier_guerra.entities.enums.BankAccountType;
+import java_cp2_javier_guerra.entities.enums.AccountType;
 import java_cp2_javier_guerra.entities.enums.CurrencyType;
 import java_cp2_javier_guerra.repositories.AccountRepository;
 import java_cp2_javier_guerra.services.IAccountService;
@@ -34,7 +34,7 @@ public class AccountServiceImpl implements IAccountService {
 
     @Override
     public Optional<Account> getAccountByCustomerId(Long id) {
-        if (id > 0) {
+        if (!accounts.isEmpty() && id > 0) {
             for (Account account : accounts.values())
                 if (account.getIdCustomer().equals(id)) return Optional.of(account);
         }
@@ -44,8 +44,8 @@ public class AccountServiceImpl implements IAccountService {
     @Override
     public List<Account> getAllAccountsByType(byte numType) {
         List<Account> listAccounts =  new ArrayList<>();
-        if (numType >= 1 && numType <= BankAccountType.values().length) {
-            BankAccountType type = BankAccountType.values()[--numType];
+        if (!accounts.isEmpty() && numType >= 1 && numType <= AccountType.values().length) {
+            AccountType type = AccountType.values()[--numType];
             for (Account account : accounts.values())
                 if (account.getType() == type) listAccounts.add(account);
         }
@@ -55,7 +55,7 @@ public class AccountServiceImpl implements IAccountService {
     @Override
     public List<Account> getAllAccountsByCurrency(byte numType) {
         List<Account> listAccounts =  new ArrayList<>();
-        if (numType >= 1 && numType <= CurrencyType.values().length) {
+        if (!accounts.isEmpty() && numType >= 1 && numType <= CurrencyType.values().length) {
             CurrencyType type = CurrencyType.values()[--numType];
             for (Account account : accounts.values()) {
                 for (CurrencyType currency : account.getCurrencies()) {
@@ -71,7 +71,7 @@ public class AccountServiceImpl implements IAccountService {
 
     public boolean currencyExist(Long id, byte numType) {
         boolean thereIsCurrency = false;
-        if (id > 0 && numType >= 0 && numType <= CurrencyType.values().length - 1) {
+        if (!accounts.isEmpty() && id > 0 && numType >= 0 && numType <= CurrencyType.values().length - 1) {
             CurrencyType currencyType =  CurrencyType.values()[numType];
             Optional<Account> optAccount = getAccountById(id);
             if (optAccount.isPresent()) {
@@ -88,43 +88,63 @@ public class AccountServiceImpl implements IAccountService {
     }
 
     @Override
-    public boolean incrementAccountAmount(Long id, Double amount) {
-        boolean incremented = false;
-        if (amount > 0) {
-            Optional<Account> optAccount = getAccountById(id);
-            if (optAccount.isPresent()) {
-                Account account = optAccount.get();
-                account.increaseAmount(amount);
-                incremented = true;
-            }
-        }
-        return incremented;
-    }
-
-    @Override
-    public boolean decrementAccountAmount(Long id, Double amount) {
-        boolean decremented = false;
-        if (amount > 0) {
-            Optional<Account> optAccount = getAccountById(id);
-            if (optAccount.isPresent()) {
-                Account account = optAccount.get();
-                if (account.getAmount() >= amount) {
-                    account.decrementAmount(amount);
-                    decremented = true;
+    public Map<AccountType, Set<Account>> getAccountTypesAndItsAccounts() {
+        Map<AccountType, Set<Account>> accountTypesAndItsAccounts = new HashMap<>();
+        if (!accounts.isEmpty()) {
+            List<Account> listAccounts = getAllAccounts();
+            Set<Account> listAccountsByType;
+            for (AccountType type : AccountType.values()) {
+                listAccountsByType = new HashSet<>();
+                for (Account account : listAccounts) {
+                    if (account.getType() == type) listAccountsByType.add(account);
+                }
+                if (!listAccountsByType.isEmpty()) {
+                    accountTypesAndItsAccounts.put(type, listAccountsByType);
+                    // listAccounts = deleteAccountsFromAListByType(listAccounts, type);
                 }
             }
         }
-        return decremented;
+        return accountTypesAndItsAccounts;
+    }
+
+    @Override
+    public List<Account> deleteAccountsFromAListByType(List<Account> listAccounts, AccountType accountType) {
+        if (!listAccounts.isEmpty()) {
+            for (Account account : listAccounts)
+                if (account.getType() == accountType) listAccounts.remove(account);
+        }
+        return listAccounts;
+    }
+
+    @Override
+    public boolean incrementOrDecrementAccountAmount(Long id, Double amount, boolean mode) {
+        boolean completed = false;
+        if (!accounts.isEmpty() && amount > 0) {
+            Optional<Account> optAccount = getAccountById(id);
+
+            if (optAccount.isPresent()) {
+                Account account = optAccount.get();
+                if (mode) {
+                    account.increaseAmount(amount);
+                    completed = true;
+                } else if (account.getAmount() >= amount) {
+                    account.decrementAmount(amount);
+                    completed = true;
+                }
+            }
+        }
+        return completed;
     }
 
     @Override
     public boolean transferAccountAmount(Long id1, Long id2, Double amount) {
         boolean transferred = false;
-        if (amount > 0) {
+        if (!accounts.isEmpty() && amount > 0) {
             Optional<Account> account1 = getAccountById(id1);
             Optional<Account> account2 = getAccountById(id1);
             if (account1.isPresent() && account2.isPresent() && account1.get().getAmount() >= amount)
-                if (decrementAccountAmount(id1, amount)) transferred = incrementAccountAmount(id2, amount);
+                if (incrementOrDecrementAccountAmount(id1, amount, false))
+                    transferred = incrementOrDecrementAccountAmount(id2, amount, true);
         }
         return transferred;
     }

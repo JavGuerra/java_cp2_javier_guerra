@@ -1,9 +1,12 @@
 package java_cp2_javier_guerra.services;
 
 import java_cp2_javier_guerra.entities.Account;
+import java_cp2_javier_guerra.entities.enums.AccountType;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 
 public interface IAccountService {
 
@@ -64,20 +67,27 @@ public interface IAccountService {
     boolean currencyExist(Long id, byte numType);
 
     /**
-     * Incrementa el saldo de la cuenta bancaria.
-     * @param id El identificador de la cuenta bancaria.
-     * @param amount Cantidad de dinero a ingresar en la cuenta.
-     * @return true si se ingresó correctamente el dinero o false si hubo un problema y no se pudo ingresar.
+     * Obtiene un mapa cuya clave es el tipo de cuenta, y cuyo valor es una lista (set) de cuentas de ese tipo.
+     * @return mapa de tipos de cuenta y sus cuentas asociadas.
      */
-    boolean incrementAccountAmount(Long id, Double amount);
+    Map<AccountType, Set<Account>> getAccountTypesAndItsAccounts();
 
     /**
-     * Decrementa el saldo de la cuenta bancaria.
+     * Elimina las cuentas bancarias que coincidan con un tipo de cuenta determinado de la lista de cuentas facilitada.
+     * @param listAccounts lista de cuentas bancarias.
+     * @param accountType tipo de cuenta bancaria.
+     * @return Lista de cuentas bancarias.
+     */
+    List<Account> deleteAccountsFromAListByType(List<Account> listAccounts, AccountType accountType);
+
+    /**
+     * Incrementa o decrementa el saldo de la cuenta bancaria.
      * @param id El identificador de la cuenta bancaria.
      * @param amount Cantidad de dinero a retirar de la cuenta.
-     * @return true si se retiró correctamente el dinero o false si hubo un problema y no se pudo retirar.
+     * @param mode true ingreso, false retiro.
+     * @return true si se ingresó/retiró correctamente el dinero o false si hubo un problema.
      */
-    boolean decrementAccountAmount(Long id, Double amount);
+    boolean incrementOrDecrementAccountAmount(Long id, Double amount, boolean mode);
 
     /**
      * Transfiere saldo entre dos cuentas bancarias si es posible.

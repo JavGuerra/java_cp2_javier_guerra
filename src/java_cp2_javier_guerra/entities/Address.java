@@ -5,16 +5,16 @@ import java.util.Objects;
 public class Address {
 
     private Long id;
-    private String direction; // calle, número, escalera, piso...
+    private String address; // calle, número, escalera, piso...
     private String postalCode;
     private String city;
     private String country;
 
     public Address() {}
 
-    public Address(Long id, String direction, String postalCode, String city, String country) {
+    public Address(Long id, String address, String postalCode, String city, String country) {
         setId(id);
-        setDirection(direction);
+        setAddress(address);
         setPostalCode(postalCode);
         setCity(city);
         setCountry(country);
@@ -28,12 +28,12 @@ public class Address {
         this.id = id;
     }
 
-    public String getDirection() {
-        return direction;
+    public String getAddress() {
+        return address;
     }
 
-    public void setDirection(String direction) {
-        this.direction = direction;
+    public void setAddress(String direction) {
+        this.address = direction;
     }
 
     public String getPostalCode() {
@@ -77,7 +77,7 @@ public class Address {
     public String toString() {
         return "Address{" +
                 "id=" + id +
-                ", direction='" + direction + '\'' +
+                ", direction='" + address + '\'' +
                 ", postalCode='" + postalCode + '\'' +
                 ", city='" + city + '\'' +
                 ", country='" + country + '\'' +

@@ -73,14 +73,6 @@ public interface IAccountService {
     Map<AccountType, Set<Account>> getAccountTypesAndItsAccounts();
 
     /**
-     * Elimina las cuentas bancarias que coincidan con un tipo de cuenta determinado de la lista de cuentas facilitada.
-     * @param listAccounts lista de cuentas bancarias.
-     * @param accountType tipo de cuenta bancaria.
-     * @return Lista de cuentas bancarias.
-     */
-    List<Account> deleteAccountsFromAListByType(List<Account> listAccounts, AccountType accountType);
-
-    /**
      * Incrementa o decrementa el saldo de la cuenta bancaria.
      * @param id El identificador de la cuenta bancaria.
      * @param amount Cantidad de dinero a retirar de la cuenta.

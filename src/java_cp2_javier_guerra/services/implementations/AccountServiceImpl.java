@@ -93,27 +93,18 @@ public class AccountServiceImpl implements IAccountService {
         if (!accounts.isEmpty()) {
             List<Account> listAccounts = getAllAccounts();
             Set<Account> listAccountsByType;
+
             for (AccountType type : AccountType.values()) {
                 listAccountsByType = new HashSet<>();
-                for (Account account : listAccounts) {
+
+                for (Account account : listAccounts)
                     if (account.getType() == type) listAccountsByType.add(account);
-                }
-                if (!listAccountsByType.isEmpty()) {
+
+                if (!listAccountsByType.isEmpty())
                     accountTypesAndItsAccounts.put(type, listAccountsByType);
-                    // listAccounts = deleteAccountsFromAListByType(listAccounts, type);
-                }
             }
         }
         return accountTypesAndItsAccounts;
-    }
-
-    @Override
-    public List<Account> deleteAccountsFromAListByType(List<Account> listAccounts, AccountType accountType) {
-        if (!listAccounts.isEmpty()) {
-            for (Account account : listAccounts)
-                if (account.getType() == accountType) listAccounts.remove(account);
-        }
-        return listAccounts;
     }
 
     @Override
@@ -138,15 +129,15 @@ public class AccountServiceImpl implements IAccountService {
 
     @Override
     public boolean transferAccountAmount(Long id1, Long id2, Double amount) {
-        boolean transferred = false;
+        boolean completed = false;
         if (!accounts.isEmpty() && amount > 0) {
             Optional<Account> account1 = getAccountById(id1);
             Optional<Account> account2 = getAccountById(id1);
             if (account1.isPresent() && account2.isPresent() && account1.get().getAmount() >= amount)
                 if (incrementOrDecrementAccountAmount(id1, amount, false))
-                    transferred = incrementOrDecrementAccountAmount(id2, amount, true);
+                    completed = incrementOrDecrementAccountAmount(id2, amount, true);
         }
-        return transferred;
+        return completed;
     }
 
     @Override

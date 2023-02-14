@@ -140,7 +140,12 @@ public abstract class AccountController {
         title("Crear una nueva cuenta");
 
         if (thereAreAccounts()) {
-           //
+           Account account = new Account();
+           account.setId(accountService.newAccountId());
+
+           // TODO
+
+           accountService.addAccount(account);
         }
     }
 

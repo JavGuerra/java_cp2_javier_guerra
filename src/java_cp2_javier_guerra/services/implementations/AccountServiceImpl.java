@@ -12,6 +12,17 @@ public class AccountServiceImpl implements IAccountService {
 
     private final Map<Long, Account> accounts = new AccountRepository(true).getAccounts();
 
+    public Long newAccountId() {
+        Long max = 0L;
+        if (!accounts.isEmpty()) {
+            for (Account account : accounts.values()) {
+                Long accountId = account.getId();
+                if (accountId > max) max = accountId;
+            }
+        }
+        return ++max;
+    }
+
     @Override
     public boolean accountExistById(Long id) {
         return accounts.containsKey(id);

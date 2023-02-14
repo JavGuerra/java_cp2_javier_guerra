@@ -11,6 +11,12 @@ import java.util.Set;
 public interface IAccountService {
 
     /**
+     * Obtiene el siguiente ID disponible en la lista de IDs.
+     * @return ID.
+     */
+    Long newAccountId();
+
+    /**
      * Comprueba si existe una cuenta bancaria dado su id.
      * @param id de la cuenta.
      * @return existe/true o no/false.

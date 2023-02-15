@@ -389,7 +389,7 @@ public abstract class AccountController {
                                 } else System.out.println("No ha sido posible realizar la transferencia.");
 
                             } else System.out.println("No se ha encontrado la cuenta de destino.");
-                        } else System.out.println("El cliente de origen y de destino son el mismo.");
+                        } else System.out.println("El cliente de origen y de destino es el mismo.");
                     } else System.out.println("Saldo insuficiente para transferir.");
                 } else System.out.println("Nada que transferir.");
             } else System.out.println("No se ha encontrado la cuenta de origen.");

@@ -25,13 +25,13 @@ Las entidades `Account`, `Address`, `Customer`, `Employee` y `Loan` tiene progra
 
 Se utiliza una estructura de datos como base de datos en memoria. Se han creado repositorios que proveen datos demo para cada una de los servicios. Estos repositorios pueden devolver una lista de datos de ejemplo, u opcionalmente, una lista de datos vacía.
 
-La aplicación ofrece un menú por consola cuyas opciones son implementadas en `AccountController`, y solicita datos al usuario que son leídos mediante la clase `Scanner` que es usada en la clase `ConsoleInput`. Esta clase gestiona excepciones.
+La aplicación ofrece un menú por consola cuyas opciones son implementadas en `AccountController`, y solicita datos al empleado que son leídos mediante la clase `Scanner` que es usada en la clase `ConsoleInput`. Esta clase gestiona excepciones.
 
 Opciones del menú:
 
 * Listar todas las cuentas
 * Buscar una cuenta por su id
-* Buscar una cuenta por el NIF del usuario
+* Buscar una cuenta por el DNI/NIE del cliente
 * Buscar las cuentas por el tipo de cuenta
 * Buscar las cuentas por una moneda soportada
 * Listar un tipo de cuenta y cuentas relacionadas (a través de un Map)  
@@ -55,12 +55,14 @@ Para la realización del ejercicio, se considera que:
 
 - La aplicación sólo gestiona las opciones relativas a cuentas bancarias.  
 - Hay un único banco, y todos los servicios están asociados a él.  
-- Hay un único cliente por cuenta bancaria.  
+- Hay un único cliente por cuenta bancaria. 
+- Los clientes son personas (NIF/NIE), no empresas (CIF).
 - Existe al menos un empleado que gestiona las opciones de cuentas bancarias.  
 
 ## TODO
 
-- Validar (`Validation`) las entradas: NIF del banco, DNI de los clientes y empleados, y cuentas de correo.  
+- Añadir email y correo electrónico al banco, a los empleados y a los clientes.
+- Validar (`Validation`) las entradas: NIF del banco, DNI/NIE de los clientes y empleados, y sus cuentas de correo.  
 
 ## Licencias
 

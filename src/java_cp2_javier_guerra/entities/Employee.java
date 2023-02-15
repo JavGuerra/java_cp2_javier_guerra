@@ -7,7 +7,7 @@ public class Employee {
 
     private Long id;
     private String name;
-    private String nif;
+    private String dniNie;
     private Long addressId;
     private Boolean active = true;
     private LocalDateTime entryDate = null;
@@ -15,10 +15,10 @@ public class Employee {
 
     Employee() {}
 
-    public Employee(Long id, String name, String nif, Long addressId) {
+    public Employee(Long id, String name, String dniNie, Long addressId) {
         setId(id);
         setName(name);
-        setNif(nif);
+        setDniNie(dniNie);
         setAddressId(addressId);
         setEntryDate(LocalDateTime.now());
     }
@@ -39,12 +39,12 @@ public class Employee {
         this.name = name;
     }
 
-    public String getNif() {
-        return nif;
+    public String getDniNie() {
+        return dniNie;
     }
 
-    public void setNif(String nif) {
-        this.nif = nif;
+    public void setDniNie(String dniNie) {
+        this.dniNie = dniNie;
     }
 
     public Long getAddressId() {
@@ -97,7 +97,7 @@ public class Employee {
         return "Employee{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", nif='" + nif + '\'' +
+                ", nif='" + dniNie + '\'' +
                 '}';
     }
 }

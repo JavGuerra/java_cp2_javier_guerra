@@ -7,7 +7,7 @@ public class Customer {
 
     private Long id;
     private String name;
-    private String nif;
+    private String dniNie;
     private Long addressId;
     private Boolean active = true;
     private LocalDateTime openingAccountDate = null;
@@ -15,10 +15,10 @@ public class Customer {
 
     Customer() {}
 
-    public Customer(Long id, String name, String nif, Long addressId) {
+    public Customer(Long id, String name, String dniNie, Long addressId) {
         setId(id);
         setName(name);
-        setNif(nif);
+        setDniNie(dniNie);
         setAddressId(addressId);
         setOpeningAccountDate(LocalDateTime.now());
     }
@@ -39,12 +39,12 @@ public class Customer {
         this.name = name;
     }
 
-    public String getNif() {
-        return nif;
+    public String getDniNie() {
+        return dniNie;
     }
 
-    public void setNif(String nif) {
-        this.nif = nif;
+    public void setDniNie(String dniNie) {
+        this.dniNie = dniNie;
     }
 
     public Long getAddressId() {
@@ -94,6 +94,6 @@ public class Customer {
 
     @Override
     public String toString() {
-        return "ID: " + id + ", Nombre: " + name + ", NIF: " + nif + ", Activo: " + (active ? "Sí" : "No");
+        return "ID: " + id + ", Nombre: " + name + ", NIF/NIE: " + dniNie + ", Activo: " + (active ? "Sí" : "No");
     }
 }

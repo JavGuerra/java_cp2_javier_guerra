@@ -27,7 +27,7 @@ public class Main {
             ┌──────┴───────────────────────────────┘
             │   1.  Listar todas las cuentas
             │   2.  Buscar una cuenta por su id
-            │   3.  Buscar una cuenta por el NIF del usuario
+            │   3.  Buscar una cuenta por el DNI/NIE del cliente
             │   4.  Buscar las cuentas por el tipo de cuenta
             │   5.  Buscar las cuentas por una moneda soportada
             │   6.  Listar un tipo de cuenta y cuentas relacionadas
@@ -52,7 +52,7 @@ public class Main {
             switch (opt) {
                 case  1 -> showAccountList();
                 case  2 -> showAccountById();
-                case  3 -> showAccountByUserNIF();
+                case  3 -> showAccountByClientDniNie();
                 case  4 -> showAccountsByType();
                 case  5 -> showAccountsByCurrency();
                 case  6 -> showAccountTypeAndItsAccounts();

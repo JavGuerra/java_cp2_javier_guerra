@@ -61,18 +61,18 @@ public abstract class AccountController {
     }
 
     /**
-     * Muestra una cuenta bancaria cuyo cliente asociado tenga un NIF determinado.
+     * Muestra una cuenta bancaria cuyo cliente asociado tenga un DNI/NIE determinado.
      */
-    public static void showAccountByUserNIF() {
-        title("Buscar una cuenta por el NIF del usuario");
+    public static void showAccountByClientDniNie() {
+        title("Buscar una cuenta por el DNI/NIE del cliente");
 
         if (thereAreAccounts()) {
-            String nif = getWord("Introduzca el NIF del usuario: ");
-            Optional<Customer> customer = customerService.getCustomerByNif(nif);
+            String dniNie = getWord("Introduzca el DNI/NIE del cliente: ");
+            Optional<Customer> customer = customerService.getCustomerByDniNie(dniNie);
             if (customer.isPresent()) {
                 Optional<Account> account = accountService.getAccountByCustomerId(customer.get().getId());
                 System.out.println(account.isPresent() ? account.get() : "No se ha encontrado la cuenta.");
-            } else System.out.println("No se ha encontrado el usuario.");
+            } else System.out.println("No se ha encontrado el cliente.");
         }
     }
 
@@ -265,7 +265,7 @@ public abstract class AccountController {
                                 }
 
                             } else System.out.println("No se ha encontrado el cliente.");
-                        } else System.out.println("No hay otros usuarios de cuentas bancarias.");
+                        } else System.out.println("No hay otros clientes de cuentas bancarias.");
                     }
 
                     case 2 -> {
@@ -387,7 +387,7 @@ public abstract class AccountController {
                                 } else System.out.println("No ha sido posible realizar la transferencia.");
 
                             } else System.out.println("No se ha encontrado la cuenta de destino.");
-                        } else System.out.println("El usuario de origen y de destino son el mismo.");
+                        } else System.out.println("El cliente de origen y de destino son el mismo.");
                     } else System.out.println("Saldo insuficiente para transferir.");
                 } else System.out.println("Nada que transferir.");
             } else System.out.println("No se ha encontrado la cuenta de origen.");

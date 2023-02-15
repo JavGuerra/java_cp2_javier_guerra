@@ -5,73 +5,61 @@ Tema: Gestión de cuenta bancaria
 --------------------------------
 
 __Autor__: Javier Guerra  
-__Status__: Pendiente  
+__Status__: Finalizado  
 __Versión__: 1.0.0  
-__Fecha__: 2023-02-
+__Fecha__: 2023-02-15  
 
-## Clases
+La aplicación gestiona las cuentas bancarias (`Account`) de un banco (`Bank`).
 
-Clases OBLIGATORIAS:
-* Clase principal **BankAccount**:
-    * Identificador (numérico)
-    * Saldo (numérico)
-    * Tipo (enum): ahorro, inversiones, empresa
-    * Coste (numérico)
-    * Interés/recompensa (numérico)
-    * Customer (Otra clase **obligatoria**)
-    * Lista de monedas soportadas: EUR, USD, FOR, HUG, CZK, YEN (Set o List de String)
-    * Fecha de creación
-* Clase **Customer**:
-    * id
-    * nif
-    * name
+Las cuentas bancarias tienen asociados clientes (`Customer`) y empleado que genera la cuenta (`Employee`).
 
-Clases OPCIONALES:
-* Clase Banco (asociado a BankAccount)
-* Clase Address (asociado a Customer)
-* Clase Préstamo: account, Empleado, cantidad, interés, fecha expiración
-* Clase Empleado
-* Interfaz e implementación para cada clase
+Las cuentas bancarias pueden ser de un tipo enum (`AccountType`) determinado y soportar una serie de monedas enum (`CurrencyType`) determinadas.
 
-## Creación de interfaz
+Las cuentas bancarias pueden tener préstamos (`Loan`) asociados. Si una cuenta tiene un préstamo asociado, la cuenta no podrá ser borrada. 
 
-Crear una interfaz para las operaciones de cuenta bancaria:
-* Buscar todas las cuentas bancarias
-* Buscar una cuenta bancaria por su id
-* Buscar una cuenta bancaria por el nif de su usuario/cliente
-* Buscar todas las cuentas bancarias por el tipo de cuenta. Ejemplo: buscar cuentas de tipo ahorro devuelve una lista con las cuentas de ahorro.
-* Buscar por moneda soportada
-* Agrupar por tipo de cuenta: devuelve un mapa cuyas claves son los tipos de cuenta y cuyos valores son listas de cuentas de esos tipos. Aquí se devuelve un mapa con todos los tipos de cuenta pero agrupados.
-* Crear nueva cuenta bancaria
-* Incrementar saldo
-* Hacer retiro / Disminuir saldo
-* Actualizar cuenta bancaria
-* Borrar cuenta bancaria
-* Traspasar saldo de una cuenta a otra
+Banco, cliente y empleado tienen direcciones (`Address`) asociadas.
 
-## Crear implementación de la interfaz que implemente todas las operaciones
+El banco ofrece una serie de servicios bancarios enum (`BankServices`) determinados.
 
-## Consola:
-* Mostrar un menú por consola con todas las opciones de la interfaz
-* El usuario puede elegir una opción
-* Leer de consola los datos necesarios para ejecutar la operación que haya elegido
+Las entidades `Account`, `Address`, `Customer`, `Employee` y `Loan` cuentan con sus respectivos servicios e implementaciones.
 
-## Recomendable:
-* Intentar gestionar las posibles excepciones y repetir las lecturas en caso de que el usuario introduzca mal los datos. Se puede crear algo parecido a la clase ScannerReader vista en el curso.
+Se utiliza una estructura de datos como base de datos en memoria. Se han creado repositorios que proveen datos demo para cada una de estas cuentas. Estos repositorios pueden devolver, opcionalmente, una lista de datos o una lista de datos vacía.
 
+La aplicación ofrece un menú por consola cuyas opciones son implementadas en `AccountController`, y solicita datos al usuario que son leídos mediante la clase `Scanner` que es usada en la clase `ConsoleInput`, clase que gestiona excepciones.
 
-## NOTAS
+Opciones del menú:
 
-Se considera que hay un único banco, y todos los servicios son suyos.
+* Listar todas las cuentas
+* Buscar una cuenta por su id
+* Buscar una cuenta por el NIF del usuario
+* Buscar las cuentas por el tipo de cuenta
+* Buscar las cuentas por una moneda soportada
+* Listar un tipo de cuenta y cuentas relacionadas
+* Crear una nueva cuenta
+* Incrementar el saldo de una cuenta por su id
+* Retirar saldo de una cuenta por su id
+* Actualizar una cuenta por su id
+* Borrar una cuenta por su id
+* Transferir saldo entre dos cuentas por sus id
+* Salir de la aplicación
+
+Cada opción realiza una serie de comprobaciones antes de realizar la operación asociada.
+
+Se genera la documentación de la aplicación con `JavaDoc` en la carpeta doc.
+
+Se incluye `CHANGELOG.md` con los cambios de versión.  
+
+## Consideraciones
+
+Para el ejercicio, se considera que:  
+
+- Hay un único banco, y todos los servicios están asociados a él.  
+- Existe al menos un empleado que gestiona las cuentas bancarias. 
+- La aplicación sólo gestiona las opciones relativas a cuentas bancarias.
 
 ## TODO
-- Opciones restantes
-- Validar Nif del banco, correos y dni
-- Generar ID automático en entidades
-- Si no existe cuenta/usuario/dirección ¿pedir crearla?
-- ¿Añadir opción de pedir un préstamo?
 
-Se incluye `CHANGELOG.md` con los cambios de versión.
+- Validar las entradas: NIF del banco, DNI de los clientes y empleados, y cuentas de correo.  
 
 ## Licencias
 

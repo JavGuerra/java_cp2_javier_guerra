@@ -1,0 +1,8 @@
+java_cp2_javier_guerra
+java_cp2_javier_guerra.controllers
+java_cp2_javier_guerra.entities
+java_cp2_javier_guerra.entities.enums
+java_cp2_javier_guerra.repositories
+java_cp2_javier_guerra.services
+java_cp2_javier_guerra.services.implementations
+java_cp2_javier_guerra.utils

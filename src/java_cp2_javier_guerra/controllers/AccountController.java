@@ -182,7 +182,7 @@ public abstract class AccountController {
                         // idCreationEmployee: Se entiende que existe al menos un empleado que
                         // gestiona la creación de cuentas y ha hecho login en el sistema.
                 accountService.addAccount(account);
-                System.out.println("Nueva cuenta bancaria:\n" + account);
+                System.out.println("Nueva cuenta bancaria creada:\n" + account);
 
             } else System.out.println("No se creará la cuenta.");
 
@@ -242,10 +242,8 @@ public abstract class AccountController {
 
                                 System.out.println("Propietario actual ID: " + customer.getId() + ", nombre: " + customer.getName());
                                 System.out.println("Listado de clientes: ");
-                                for (Customer icustomer : customerService.getAllCustomers()) {
-                                    if (!customer.getId().equals(icustomer.getId()))
-                                        System.out.println("ID: " + icustomer.getId() + ". nombre: " + icustomer.getName());
-                                }
+                                for (Customer icustomer : customerService.getAllCustomers())
+                                    if (!customer.getId().equals(icustomer.getId())) System.out.println(icustomer);
 
                                 Long newId;
                                 Optional<Customer> optNewCustomer;

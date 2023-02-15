@@ -94,14 +94,6 @@ public class Customer {
 
     @Override
     public String toString() {
-        return "Customer{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", nif='" + nif + '\'' +
-                ", addressId=" + addressId +
-                ", active=" + active +
-                ", openingAccountDate=" + openingAccountDate +
-                ", closingAccountDate=" + closingAccountDate +
-                '}';
+        return "ID: " + id + ", Nombre: " + name + ", NIF: " + nif + ", Activo: " + (active ? "Sí" : "No");
     }
 }

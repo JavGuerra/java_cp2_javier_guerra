@@ -29,10 +29,10 @@ public interface ICustomerService {
 
     /**
      * Obtiene un cliente por su NIF.
-     * @param dniNie del cliente.
+     * @param nif del cliente.
      * @return opcionalmente, cliente o null.
      */
-    Optional<Customer> getCustomerByDniNie(String dniNie);
+    Optional<Customer> getCustomerByNif(String nif);
 
     /**
      * Borra un cliente de la lista.

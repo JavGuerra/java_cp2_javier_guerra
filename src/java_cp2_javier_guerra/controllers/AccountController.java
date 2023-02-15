@@ -61,14 +61,14 @@ public abstract class AccountController {
     }
 
     /**
-     * Muestra una cuenta bancaria cuyo cliente asociado tenga un DNI/NIE determinado.
+     * Muestra una cuenta bancaria cuyo cliente asociado tenga un NIF determinado.
      */
-    public static void showAccountByClientDniNie() {
-        title("Buscar una cuenta por el DNI/NIE del cliente");
+    public static void showAccountByClientNif() {
+        title("Buscar una cuenta por el NIF del cliente");
 
         if (thereAreAccounts()) {
-            String dniNie = getWord("Introduzca el DNI/NIE del cliente (p.ej. 12345678A): ");
-            Optional<Customer> customer = customerService.getCustomerByDniNie(dniNie);
+            String nif = getWord("Introduzca el NIF del cliente (p.ej. 12345678A): ");
+            Optional<Customer> customer = customerService.getCustomerByNif(nif);
             if (customer.isPresent()) {
                 Optional<Account> account = accountService.getAccountByCustomerId(customer.get().getId());
                 System.out.println(account.isPresent() ? account.get() : "No se ha encontrado la cuenta.");

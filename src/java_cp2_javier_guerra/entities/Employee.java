@@ -7,7 +7,7 @@ public class Employee {
 
     private Long id;
     private String name;
-    private String dniNie;
+    private String nif;
     private Long addressId;
     private String phone;
     private String email;
@@ -17,10 +17,10 @@ public class Employee {
 
     Employee() {}
 
-    public Employee(Long id, String name, String dniNie, Long addressId, String phone, String email) {
+    public Employee(Long id, String name, String nif, Long addressId, String phone, String email) {
         setId(id);
         setName(name);
-        setDniNie(dniNie);
+        setNif(nif);
         setAddressId(addressId);
         setPhone(phone);
         setEmail(email);
@@ -43,12 +43,12 @@ public class Employee {
         this.name = name;
     }
 
-    public String getDniNie() {
-        return dniNie;
+    public String getNif() {
+        return nif;
     }
 
-    public void setDniNie(String dniNie) {
-        this.dniNie = dniNie;
+    public void setNif(String nif) {
+        this.nif = nif;
     }
 
     public Long getAddressId() {
@@ -114,6 +114,6 @@ public class Employee {
 
     @Override
     public String toString() {
-        return "Empleado ID: " + id + ", Nombre: " + name + ", NIF/NIE: " + dniNie + ", Activo: " + (active ? "Sí" : "No");
+        return "Empleado ID: " + id + ", Nombre: " + name + ", NIF: " + nif + ", Activo: " + (active ? "Sí" : "No");
     }
 }

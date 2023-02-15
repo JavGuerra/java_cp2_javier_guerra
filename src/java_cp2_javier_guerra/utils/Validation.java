@@ -9,21 +9,10 @@ public abstract class Validation {
      * @return true / false
      */
     public static boolean isNifFormat(String nif) {
-        return (!nif.equals("")) && (nif.matches("(\\d{1,8})"
-                + "([TRWAGMYFPDXBNJZSQVHLCKEtrwagmyfpdxbnjzsqvhlcke])"));
+        return nif != null && !nif.equals("") &&
+                (nif.matches("(\\d{1,8})" + "([TRWAGMYFPDXBNJZSQVHLCKEtrwagmyfpdxbnjzsqvhlcke])"));
     }
-
-    /**
-     * Comprueba si dniNie tiene la forma de un DNI o NIE.
-     * No comprueba si es un DNI o NIE válido, sólo su formato.
-     * @param dniNie DNI o NIE.
-     * @return true / false
-     */
-    public static boolean isDniNieFormat(String dniNie) {
-        return dniNie != null && !dniNie.equals("") &&
-                dniNie.matches("([XYxy])?(\\d{1,8})([TRWAGMYFPDXBNJZSQVHLCKEtrwagmyfpdxbnjzsqvhlcke])");
-    }
-
+    
     /**
      * Comprueba si tiene la forma de un número de teléfono.
      * No comprueba si es un número de telefono válido, sólo su formato.
@@ -31,9 +20,8 @@ public abstract class Validation {
      * @return true / false
      */
     public static boolean isPhoneFormat(String phone) {
-        return (!phone.equals(""))
-                && (phone.matches(
-                "(\\+)?[(\\([0-9]{2,3}\\))|([0-9]{2,3})]+([0-9]{6,9})"));
+        return phone != null && !phone.equals("") &&
+                (phone.matches("(\\+)?[(\\([0-9]{2,3}\\))|([0-9]{2,3})]+([0-9]{6,9})"));
     }
 
     /**

@@ -31,7 +31,7 @@ Opciones del menú:
 
 * Listar todas las cuentas
 * Buscar una cuenta por su id
-* Buscar una cuenta por el DNI/NIE del cliente
+* Buscar una cuenta por el NIF del cliente
 * Buscar las cuentas por el tipo de cuenta
 * Buscar las cuentas por una moneda soportada
 * Listar tipos de cuenta y sus cuentas relacionadas (a través de un Map)  
@@ -55,13 +55,12 @@ Para la realización del ejercicio, se considera que:
 
 - La aplicación sólo gestiona las opciones relativas a cuentas bancarias.  
 - Hay un único banco, y todos los servicios están asociados a él.  
-- Hay un único cliente por cuenta bancaria. 
-- Los clientes son personas (NIF/NIE), no empresas (CIF).
+- Hay un único cliente por cuenta bancaria.
 - Existe al menos un empleado que gestiona las opciones de cuentas bancarias.  
 
 ## TODO
 
-- Validar (`Validation`) los datos NIF del banco, DNI/NIE de los clientes y empleados, y sus cuentas de correo en los setters.
+- Validar (`Validation`) los datos NIF del banco, DNI/NIE de los clientes y empleados, y sus cuentas de correo en los _setters_.
 
 ## Licencias
 

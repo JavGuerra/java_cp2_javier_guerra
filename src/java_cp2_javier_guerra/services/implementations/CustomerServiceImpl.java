@@ -27,10 +27,10 @@ public class CustomerServiceImpl implements ICustomerService {
     }
 
     @Override
-    public Optional<Customer> getCustomerByDniNie(String dniNie) {
-        if (dniNie != null && !dniNie.equals("")) {
+    public Optional<Customer> getCustomerByNif(String nif) {
+        if (nif != null && !nif.equals("")) {
             for (Customer customer : customers.values())
-                if (customer.getDniNie().equals(dniNie)) return Optional.of(customer);
+                if (customer.getNif().equals(nif)) return Optional.of(customer);
         }
         return Optional.empty();
     }

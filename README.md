@@ -1,8 +1,8 @@
 Caso práctico 2
 ===============
 
-Tema: Gestión de cuenta bancaria
---------------------------------
+Tema: Gestión de cuentas bancarias
+----------------------------------
 
 __Autor__: Javier Guerra  
 __Status__: Finalizado  
@@ -11,19 +11,19 @@ __Fecha__: 2023-02-15
 
 La aplicación gestiona las cuentas bancarias (`Account`) de un banco (`Bank`).
 
-Las cuentas bancarias tienen asociados clientes (`Customer`) y empleado que genera la cuenta (`Employee`).
+Cada cuenta bancaria tiene asociado un cliente (`Customer`) y un empleado que creó la cuenta (`Employee`).
 
-Las cuentas bancarias pueden ser de un tipo enum (`AccountType`) determinado y soportar una serie de monedas enum (`CurrencyType`) determinadas.
+Las cuentas bancarias pueden ser de un tipo _enum_ determinado (`AccountType`) y soportar una serie de monedas _enum_ determinadas (`CurrencyType`).
 
-Las cuentas bancarias pueden tener préstamos (`Loan`) asociados. Si una cuenta tiene un préstamo asociado, la cuenta no podrá ser borrada. 
+Las cuentas bancarias pueden tener préstamos asociados (`Loan`). Si una cuenta tiene un préstamo asociado, la cuenta no podrá ser borrada. 
 
-Banco, cliente y empleado tienen direcciones (`Address`) asociadas.
+Banco, cliente y empleado tienen direcciones asociadas (`Address`).
 
-El banco ofrece una serie de servicios bancarios enum (`BankServices`) determinados.
+El banco ofrece una serie de servicios bancarios _enum_ determinados (`BankServices`).
 
-Las entidades `Account`, `Address`, `Customer`, `Employee` y `Loan` cuentan con sus respectivos servicios e implementaciones.
+Las entidades `Account`, `Address`, `Customer`, `Employee` y `Loan` tiene programados sus respectivos servicios e implementaciones.
 
-Se utiliza una estructura de datos como base de datos en memoria. Se han creado repositorios que proveen datos demo para cada una de estas cuentas. Estos repositorios pueden devolver, opcionalmente, una lista de datos o una lista de datos vacía.
+Se utiliza una estructura de datos como base de datos en memoria. Se han creado repositorios que proveen datos demo para cada una de los servicios. Estos repositorios pueden devolver una lista de datos de ejemplo, u opcionalmente, una lista de datos vacía.
 
 La aplicación ofrece un menú por consola cuyas opciones son implementadas en `AccountController`, y solicita datos al usuario que son leídos mediante la clase `Scanner` que es usada en la clase `ConsoleInput`, clase que gestiona excepciones.
 
@@ -51,15 +51,16 @@ Se incluye `CHANGELOG.md` con los cambios de versión.
 
 ## Consideraciones
 
-Para el ejercicio, se considera que:  
+Para la realización del ejercicio, se considera que:  
 
+- La aplicación sólo gestiona las opciones relativas a cuentas bancarias.  
 - Hay un único banco, y todos los servicios están asociados a él.  
-- Existe al menos un empleado que gestiona las cuentas bancarias. 
-- La aplicación sólo gestiona las opciones relativas a cuentas bancarias.
+- Hay un único cliente por cuenta bancaria.  
+- Existe al menos un empleado que gestiona las opciones de cuentas bancarias.  
 
 ## TODO
 
-- Validar las entradas: NIF del banco, DNI de los clientes y empleados, y cuentas de correo.  
+- Validar (`Validation`) las entradas: NIF del banco, DNI de los clientes y empleados, y cuentas de correo.  
 
 ## Licencias
 

@@ -25,7 +25,7 @@ Las entidades `Account`, `Address`, `Customer`, `Employee` y `Loan` tiene progra
 
 Se utiliza una estructura de datos como base de datos en memoria. Se han creado repositorios que proveen datos demo para cada una de los servicios. Estos repositorios pueden devolver una lista de datos de ejemplo, u opcionalmente, una lista de datos vacía.
 
-La aplicación ofrece un menú por consola cuyas opciones son implementadas en `AccountController`, y solicita datos al usuario que son leídos mediante la clase `Scanner` que es usada en la clase `ConsoleInput`, clase que gestiona excepciones.
+La aplicación ofrece un menú por consola cuyas opciones son implementadas en `AccountController`, y solicita datos al usuario que son leídos mediante la clase `Scanner` que es usada en la clase `ConsoleInput`. Esta clase gestiona excepciones.
 
 Opciones del menú:
 
@@ -34,7 +34,7 @@ Opciones del menú:
 * Buscar una cuenta por el NIF del usuario
 * Buscar las cuentas por el tipo de cuenta
 * Buscar las cuentas por una moneda soportada
-* Listar un tipo de cuenta y cuentas relacionadas
+* Listar un tipo de cuenta y cuentas relacionadas (a través de un Map)  
 * Crear una nueva cuenta
 * Incrementar el saldo de una cuenta por su id
 * Retirar saldo de una cuenta por su id
@@ -43,9 +43,9 @@ Opciones del menú:
 * Transferir saldo entre dos cuentas por sus id
 * Salir de la aplicación
 
-Cada opción realiza una serie de comprobaciones antes de realizar la operación asociada.
+Cada opción realiza una serie de comprobaciones, generando los correspondientes mensajes de error, antes de realizar, o no, la operación asociada.
 
-Se genera la documentación de la aplicación con `JavaDoc` en la carpeta doc.
+Se genera la documentación de la aplicación con `JavaDoc` en la carpeta: __doc__.
 
 Se incluye `CHANGELOG.md` con los cambios de versión.  
 

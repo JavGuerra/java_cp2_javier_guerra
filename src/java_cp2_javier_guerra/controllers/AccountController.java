@@ -227,6 +227,7 @@ public abstract class AccountController {
             Optional<Account> optAccount = accountService.getAccountById(id);
             if (optAccount.isPresent()) {
                 Account account = optAccount.get();
+                System.out.println("Cuenta: " + account);
 
                 System.out.println("Cambiar: (1) propietario, (2) saldo, (3) tipo, (4) moneda, (5) estado.");
                 byte opt = getLongIntPosByRange("¿Qué opción desea? ",1L, 5L).byteValue();
@@ -301,6 +302,7 @@ public abstract class AccountController {
                             mode = getLongIntPosByRange("¿Desea (1) añadir o (2) quitar una moneda?: ", 1L, 2L).byteValue();
                         } else System.out.println("La cuenta no tiene monedas soportadas. Añada una.");
 
+                        System.out.println((mode == 1 ? "Añadir" : "Quitar") + " un tipo de moneda.");
                         String msg = "Elija tipo:" + getCurrencyTypeList() + ": ";
                         byte pos = getLongIntPosByRange(msg, 1L, (long) currencies.length).byteValue();
 

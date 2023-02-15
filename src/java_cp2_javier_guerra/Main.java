@@ -16,7 +16,7 @@ public class Main {
 
     public static void main(String[] args) {
 
-        Bank bank = new Bank(1L,"TuBanca", "Aportando valor", "11223344A", 1L);
+        Bank bank = new Bank(1L,"TuBanca", "Aportando valor", "11223344A", 1L, "+34 123 456 789", "info@banco.es" );
         bank.setBankServices(Set.of(BankServices.ACCOUNTS, BankServices.LOANS));
 
         byte opt;

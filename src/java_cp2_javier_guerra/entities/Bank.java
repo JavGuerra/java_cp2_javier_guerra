@@ -12,16 +12,20 @@ public final class Bank {
     private String slogan;
     private String nif;
     private Long addressId;
+    private String phone;
+    private String email;
     private Set<BankServices> bankServices = new HashSet<>();
 
     public Bank() {}
 
-    public Bank(Long id, String name, String slogan, String nif, Long addressId) {
+    public Bank(Long id, String name, String slogan, String nif, Long addressId, String phone, String email) {
         setId(id);
         setName(name);
         setSlogan(slogan);
         setNif(nif);
         setAddressId(addressId);
+        setPhone(phone);
+        setEmail(email);
     }
 
     public Long getId() {
@@ -62,6 +66,22 @@ public final class Bank {
 
     public void setAddressId(Long addressId) {
         this.addressId = addressId;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public Set<BankServices> getBankServices() {

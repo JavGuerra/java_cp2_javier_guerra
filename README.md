@@ -61,8 +61,7 @@ Para la realización del ejercicio, se considera que:
 
 ## TODO
 
-- Añadir email y correo electrónico al banco, a los empleados y a los clientes.
-- Validar (`Validation`) las entradas: NIF del banco, DNI/NIE de los clientes y empleados, y sus cuentas de correo.  
+- Validar (`Validation`) los datos NIF del banco, DNI/NIE de los clientes y empleados, y sus cuentas de correo en los setters.
 
 ## Licencias
 

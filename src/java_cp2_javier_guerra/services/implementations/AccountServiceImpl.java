@@ -55,8 +55,8 @@ public class AccountServiceImpl implements IAccountService {
     @Override
     public List<Account> getAllAccountsByType(byte numType) {
         List<Account> listAccounts =  new ArrayList<>();
-        if (!accounts.isEmpty() && numType >= 1 && numType <= AccountType.values().length) {
-            AccountType type = AccountType.values()[--numType];
+        if (!accounts.isEmpty() && numType >= 0 && numType <= AccountType.values().length -1) {
+            AccountType type = AccountType.values()[numType];
             for (Account account : accounts.values())
                 if (account.getType() == type) listAccounts.add(account);
         }
@@ -66,21 +66,15 @@ public class AccountServiceImpl implements IAccountService {
     @Override
     public List<Account> getAllAccountsByCurrency(byte numType) {
         List<Account> listAccounts =  new ArrayList<>();
-        if (!accounts.isEmpty() && numType >= 1 && numType <= CurrencyType.values().length) {
-            CurrencyType type = CurrencyType.values()[--numType];
-            for (Account account : accounts.values()) {
-                for (CurrencyType currency : account.getCurrencies()) {
-                    if (currency == type) {
-                        listAccounts.add(account);
-                        break;
-                    }
-                }
-            }
+        if (!accounts.isEmpty() && numType >= 0 && numType <= CurrencyType.values().length -1) {
+            CurrencyType type = CurrencyType.values()[numType];
+            for (Account account : accounts.values())
+                if (currencyExistInAccount(account.getId(), numType)) listAccounts.add(account);
         }
         return listAccounts;
     }
 
-    public boolean currencyExist(Long id, byte numType) {
+    public boolean currencyExistInAccount(Long id, byte numType) {
         boolean thereIsCurrency = false;
         if (!accounts.isEmpty() && id > 0 && numType >= 0 && numType <= CurrencyType.values().length - 1) {
             CurrencyType currencyType =  CurrencyType.values()[numType];
@@ -99,20 +93,13 @@ public class AccountServiceImpl implements IAccountService {
     }
 
     @Override
-    public Map<AccountType, Set<Account>> getAccountTypesAndItsAccounts() {
-        Map<AccountType, Set<Account>> accountTypesAndItsAccounts = new HashMap<>();
+    public Map<AccountType, List<Account>> getAccountTypesAndItsAccounts() {
+        Map<AccountType, List<Account>> accountTypesAndItsAccounts = new HashMap<>();
         if (!accounts.isEmpty()) {
-            List<Account> listAccounts = getAllAccounts();
-            Set<Account> listAccountsByType;
-
+            List<Account> listAccountsByType;
             for (AccountType type : AccountType.values()) {
-                listAccountsByType = new HashSet<>();
-
-                for (Account account : listAccounts)
-                    if (account.getType() == type) listAccountsByType.add(account);
-
-                if (!listAccountsByType.isEmpty())
-                    accountTypesAndItsAccounts.put(type, listAccountsByType);
+                listAccountsByType = getAllAccountsByType((byte) type.ordinal());
+                if (!listAccountsByType.isEmpty()) accountTypesAndItsAccounts.put(type, listAccountsByType);
             }
         }
         return accountTypesAndItsAccounts;

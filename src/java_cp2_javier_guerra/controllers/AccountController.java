@@ -5,10 +5,7 @@ import java_cp2_javier_guerra.entities.enums.*;
 import java_cp2_javier_guerra.services.*;
 import java_cp2_javier_guerra.services.implementations.*;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 import static java_cp2_javier_guerra.entities.enums.AccountType.*;
 import static java_cp2_javier_guerra.entities.enums.CurrencyType.*;
@@ -29,8 +26,11 @@ public abstract class AccountController {
      */
     private static boolean thereAreAccounts() {
         boolean thereAreAccounts = false;
-        if (accountService.getAllAccounts().size() > 0) thereAreAccounts = true;
-        else System.out.println("No hay cuentas bancarias.");
+        if (!accountService.getAllAccounts().isEmpty()) thereAreAccounts = true;
+        else {
+            System.out.println("No hay cuentas bancarias.");
+            if (getYesNo("¿Desea crear una nueva cuenta bancaria? (S/N): ")) createNewAccount();
+        }
         return thereAreAccounts;
     }
 
@@ -86,7 +86,8 @@ public abstract class AccountController {
             String msg = "Elija tipo:" + getBankAccountTypeList() + ": ";
             byte pos = getLongIntPosByRange(msg, 1L, (long) AccountType.values().length).byteValue();
             if (pos > 0) {
-                System.out.println("Cuentas del tipo: " + AccountType.values()[pos -1].getName());
+                --pos;
+                System.out.println("Cuentas del tipo: " + AccountType.values()[pos].getName());
                 List<Account> accounts = accountService.getAllAccountsByType(pos);
                 if (!accounts.isEmpty()) {
                     accounts.forEach(System.out::println);
@@ -107,7 +108,8 @@ public abstract class AccountController {
             String msg = "Elija tipo:" + getCurrencyTypeList() + ": ";
             byte pos = getLongIntPosByRange(msg, 1L, (long) currencies.length).byteValue();
             if (pos > 0) {
-                System.out.println("Cuentas que soportan la moneda: " + currencies[pos -1].getName());
+                --pos;
+                System.out.println("Cuentas que soportan la moneda: " + currencies[pos].getName());
                 List<Account> accounts = accountService.getAllAccountsByCurrency(pos);
                 if (!accounts.isEmpty()) {
                     accounts.forEach(System.out::println);
@@ -125,7 +127,7 @@ public abstract class AccountController {
         title("Listar un tipo de cuenta y cuentas relacionadas");
 
         if (thereAreAccounts()) {
-            Map<AccountType, Set<Account>> AccountTypesAndItsAccounts = accountService.getAccountTypesAndItsAccounts();
+            Map<AccountType, List<Account>> AccountTypesAndItsAccounts = accountService.getAccountTypesAndItsAccounts();
             for (AccountType type : AccountTypesAndItsAccounts.keySet()) {
                 System.out.println(type.getName() + ":");
                 for (Account account : AccountTypesAndItsAccounts.get(type)) System.out.println(account);
@@ -139,14 +141,52 @@ public abstract class AccountController {
     public static void createNewAccount() {
         title("Crear una nueva cuenta");
 
-        if (thereAreAccounts()) {
-           Account account = new Account();
-           account.setId(accountService.newAccountId());
+        if (!customerService.getAllCustomers().isEmpty()) {
+            boolean create = true;
+            String msg;
+            long idCustomer;
+            byte posAccountType = 0;
+            byte posCurrencyType = 0;
+            double amount = 0;
 
-           // TODO
+            System.out.println("Lista de clientes:");
+            customerService.getAllCustomers().forEach(System.out::println);
+            idCustomer = getLongIntPos("introduzca el ID del cliente: ");
+            if (idCustomer != 0) {
 
-           accountService.addAccount(account);
-        }
+                System.out.println("Tipo de cuenta:");
+                msg = "Elija tipo:" + getBankAccountTypeList() + ": ";
+                posAccountType = getLongIntPosByRange(msg, 1L, (long) AccountType.values().length).byteValue();
+                if (posAccountType != 0) {
+
+                    System.out.println("Tipo de moneda inicial:");
+                    msg = "Elija tipo:" + getCurrencyTypeList() + ": ";
+                    posCurrencyType = getLongIntPosByRange(msg, 1L, (long) CurrencyType.values().length).byteValue();
+                    if (posCurrencyType != 0) {
+
+                        System.out.println("Saldo inicial:");
+                        amount = getDoublePos("Introduzca la cantidad: ");
+
+                    } else create = false;
+                } else create = false;
+            } else create = false;
+
+            if (create) {
+                Account account = new Account(
+                        accountService.newAccountId(),
+                        amount,
+                        AccountType.values()[--posAccountType],
+                        new HashSet<>(Set.of(CurrencyType.values()[--posCurrencyType])),
+                        idCustomer,
+                        1L);
+                        // idCreationEmployee: Se entiende que existe al menos un empleado que
+                        // gestiona la creación de cuentas y ha hecho login en el sistema.
+                accountService.addAccount(account);
+                System.out.println("Nueva cuenta bancaria:\n" + account);
+
+            } else System.out.println("No se creará la cuenta.");
+
+        } else System.out.println("No hay clientes para crear una cuenta.");
     }
 
     /**
@@ -164,7 +204,7 @@ public abstract class AccountController {
                 Account account = optAccount.get();
 
                 System.out.println("Saldo actual: " + account.getAmount());
-                double amount = getLongIntPos("Introduzca la cantidad a " + strMode + ": ").doubleValue();
+                double amount = getDoublePos("Introduzca la cantidad a " + strMode + ": ");
                 if (amount > 0) {
                     System.out.println(accountService.incrementOrDecrementAccountAmount(id, amount, mode)
                             ? "Nuevo saldo: " + account.getAmount()
@@ -234,12 +274,9 @@ public abstract class AccountController {
                         System.out.println("Cambiar el saldo de la cuenta.");
 
                         System.out.println("Saldo actual: " + account.getAmount());
-                        double amount = getLongIntPos("Introduzca la cantidad: ").doubleValue();
-
-                        if (amount > 0) {
-                            account.setAmount(amount);
-                            System.out.println("Nuevo saldo: " + account.getAmount());
-                        } else System.out.println("Nada que cambiar.");
+                        double amount = getDoublePos("Introduzca la cantidad: ");
+                        account.setAmount(amount);
+                        System.out.println("Nuevo saldo: " + account.getAmount());
                     }
 
                     case 3 -> {
@@ -271,7 +308,7 @@ public abstract class AccountController {
 
                         if (pos > 0) {
                             --pos;
-                            boolean currencyExist = accountService.currencyExist(account.getId(), pos);
+                            boolean currencyExist = accountService.currencyExistInAccount(account.getId(), pos);
                             if (mode == 1) {
                                 if (!currencyExist) {
                                     account.setCurrency(currencies[pos]);
@@ -334,7 +371,7 @@ public abstract class AccountController {
                 Account account1 = optAccount1.get();
                 System.out.println("Saldo en origen: " + account1.getAmount());
 
-                double amount = getLongIntPos("Introduzca la cantidad a transferir : ").doubleValue();
+                double amount = getDoublePos("Introduzca la cantidad a transferir : ");
                 if (amount > 0) {
                     if (amount <= account1.getAmount()) {
                         Long id2 = getLongIntPos("Introduzca el ID de la cuenta de destino: ");

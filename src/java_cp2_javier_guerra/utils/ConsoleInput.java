@@ -13,6 +13,29 @@ public abstract class ConsoleInput {
     private static final Scanner IN = new Scanner(System.in);
 
     /**
+     * Solicita con un mensaje por consola y comprueba que se introduzca un número entero, positivo (>=0).
+     * @param message String Pregunta del usuario
+     * @return Double Número introducido
+     */
+    public static Double getDoublePos(String message) {
+        if (message == null) message = "";
+        double num;
+        while(true) {
+            System.out.print(message);
+            try {
+                num = IN.nextDouble();
+                IN.nextLine();
+            } catch (InputMismatchException e) {
+                System.out.println("Tipo de dato no reconocido.");
+                IN.nextLine();
+                continue;
+            }
+            if (num >= 0) return num;
+            System.out.println("Valor fuera de rango.");
+        }
+    }
+
+    /**
      * Solicita con un mensaje por consola y comprueba que se introduzca un número largo, entero, positivo (>=0).
      * @param message String Pregunta del usuario
      * @return Long Número introducido

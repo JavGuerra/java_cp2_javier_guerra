@@ -6,7 +6,6 @@ import java_cp2_javier_guerra.entities.enums.AccountType;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.Set;
 
 public interface IAccountService {
 
@@ -70,13 +69,13 @@ public interface IAccountService {
      * @param numType tipo de moneda.
      * @return true si soporta la moneda, false en caso contrario.
      */
-    boolean currencyExist(Long id, byte numType);
+    boolean currencyExistInAccount(Long id, byte numType);
 
     /**
      * Obtiene un mapa cuya clave es el tipo de cuenta, y cuyo valor es una lista (set) de cuentas de ese tipo.
      * @return mapa de tipos de cuenta y sus cuentas asociadas.
      */
-    Map<AccountType, Set<Account>> getAccountTypesAndItsAccounts();
+    Map<AccountType, List<Account>> getAccountTypesAndItsAccounts();
 
     /**
      * Incrementa o decrementa el saldo de la cuenta bancaria.

@@ -115,6 +115,5 @@ public class Employee {
     @Override
     public String toString() {
         return "Empleado ID: " + id + ", Nombre: " + name + ", NIF/NIE: " + dniNie + ", Activo: " + (active ? "Sí" : "No");
-
     }
 }

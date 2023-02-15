@@ -30,7 +30,7 @@ public class Main {
             │   3.  Buscar una cuenta por el DNI/NIE del cliente
             │   4.  Buscar las cuentas por el tipo de cuenta
             │   5.  Buscar las cuentas por una moneda soportada
-            │   6.  Listar un tipo de cuenta y cuentas relacionadas
+            │   6.  Listar tipos de cuenta y sus cuentas relacionadas
             │   7.  Crear una nueva cuenta
             │   8.  Incrementar el saldo de una cuenta por su id
             │   9.  Retirar saldo de una cuenta por su id

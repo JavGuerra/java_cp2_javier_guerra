@@ -34,7 +34,7 @@ Opciones del menú:
 * Buscar una cuenta por el DNI/NIE del cliente
 * Buscar las cuentas por el tipo de cuenta
 * Buscar las cuentas por una moneda soportada
-* Listar un tipo de cuenta y cuentas relacionadas (a través de un Map)  
+* Listar tipos de cuenta y sus cuentas relacionadas (a través de un Map)  
 * Crear una nueva cuenta
 * Incrementar el saldo de una cuenta por su id
 * Retirar saldo de una cuenta por su id

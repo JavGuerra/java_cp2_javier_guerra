@@ -67,7 +67,7 @@ public abstract class AccountController {
         title("Buscar una cuenta por el DNI/NIE del cliente");
 
         if (thereAreAccounts()) {
-            String dniNie = getWord("Introduzca el DNI/NIE del cliente: ");
+            String dniNie = getWord("Introduzca el DNI/NIE del cliente (p.ej. 12345678A): ");
             Optional<Customer> customer = customerService.getCustomerByDniNie(dniNie);
             if (customer.isPresent()) {
                 Optional<Account> account = accountService.getAccountByCustomerId(customer.get().getId());
@@ -124,7 +124,7 @@ public abstract class AccountController {
      * Obtiene un Map cuyas claves son los tipos de cuenta y cuyos valores son listas de cuentas de esos tipos.
      */
     public static void showAccountTypeAndItsAccounts() {
-        title("Listar un tipo de cuenta y cuentas relacionadas");
+        title("Listar tipos de cuenta y sus cuentas relacionadas");
 
         if (thereAreAccounts()) {
             Map<AccountType, List<Account>> AccountTypesAndItsAccounts = accountService.getAccountTypesAndItsAccounts();
@@ -149,7 +149,7 @@ public abstract class AccountController {
             byte posCurrencyType = 0;
             double amount = 0;
 
-            System.out.println("Lista de clientes:");
+            System.out.println("Listado de clientes:");
             customerService.getAllCustomers().forEach(System.out::println);
             idCustomer = getLongIntPos("introduzca el ID del cliente: ");
             if (idCustomer != 0) {

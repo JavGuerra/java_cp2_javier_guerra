@@ -3,6 +3,8 @@ package java_cp2_javier_guerra.utils;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+import static java_cp2_javier_guerra.utils.Validation.*;
+
 /**
  * Gestión de entrada por teclado
  * Más info: <a href="https://javguerra.github.io/2023-01-31-clase-scanner-java/">ConsoleInput kit</a>
@@ -14,8 +16,8 @@ public abstract class ConsoleInput {
 
     /**
      * Solicita con un mensaje por consola y comprueba que se introduzca un número entero, positivo (>=0).
-     * @param message String Pregunta del usuario
-     * @return Double Número introducido
+     * @param message String Pregunta del usuario.
+     * @return Double Número introducido.
      */
     public static Double getDoublePos(String message) {
         if (message == null) message = "";
@@ -37,8 +39,8 @@ public abstract class ConsoleInput {
 
     /**
      * Solicita con un mensaje por consola y comprueba que se introduzca un número largo, entero, positivo (>=0).
-     * @param message String Pregunta del usuario
-     * @return Long Número introducido
+     * @param message String Pregunta del usuario.
+     * @return Long Número introducido.
      */
     public static Long getLongIntPos(String message) {
         if (message == null) message = "";
@@ -61,10 +63,10 @@ public abstract class ConsoleInput {
     /**
      * Solicita con un mensaje por consola y comprueba que se introduzca un número largo, entero, positivo (>=0).
      * cuyo rango esté entre el valor mínimo y el valor máximo recibido, ambos inclusive.
-     * @param message String Pregunta del usuario
-     * @param min Long Valor mínimo
-     * @param max Long Valor máximo
-     * @return Long Número introducido
+     * @param message String Pregunta del usuario.
+     * @param min Long Valor mínimo.
+     * @param max Long Valor máximo.
+     * @return Long Número introducido.
      */
     public static Long getLongIntPosByRange(String message, Long min, Long max) {
         if (message == null) message = "";
@@ -89,8 +91,8 @@ public abstract class ConsoleInput {
 
     /**
      * Solicita con un mensaje por consola y comprueba que se introduzca una palabra de, al menos, 3 caracteres.
-     * @param message String Pregunta del usuario
-     * @return String Palabra introducida
+     * @param message String Pregunta del usuario.
+     * @return String Palabra introducida.
      */
     public static String getWord(String message) {
         if (message == null) message = "";
@@ -113,8 +115,8 @@ public abstract class ConsoleInput {
 
     /**
      * Solicita con un mensaje por consola y comprueba que se introduzca una cadena de texto de, al menos, 3 caracteres.
-     * @param message String Pregunta del usuario
-     * @return String Cadena de texto introducida
+     * @param message String Pregunta del usuario.
+     * @return String Cadena de texto introducida.
      */
     public static String getString(String message) {
         if (message == null) message = "";
@@ -131,6 +133,40 @@ public abstract class ConsoleInput {
             str = str.trim();
             if (str.length() >= 3) return str;
             System.out.println("Cadena no válida.");
+        }
+    }
+
+    /**
+     * Solicita con un mensaje por consola y comprueba que se introduzca una cadena de texto con el formato indicado.
+     * Soporta los tipos de formato: «nif», «phone» y «email».
+     * Si no se indica el tipo correcto de dato, se verifica que la cadena tiene, al menos, 3 caracteres.
+     * @param message String Pregunta del usuario.
+     * @param type tipo de formato a comprobar.
+     * @return String Cadena de texto introducida
+     */
+    public static String getFormat(String message, String type) {
+        if (message == null) message = "";
+        type = (type == null) ? "" : type.toLowerCase();
+        boolean match = false;
+        String str;
+        while(true) {
+            System.out.print(message);
+            try {
+                str = IN.nextLine();
+            } catch (InputMismatchException e) {
+                System.out.println("Tipo de dato no reconocido.");
+                IN.nextLine();
+                continue;
+            }
+            str = str.trim();
+            switch (type) {
+                case "nif" -> match = isNifFormat(str);
+                case "phone" -> match = isPhoneFormat(str);
+                case "email" -> match = isEmailFormat(str);
+                default -> match = str.length() >= 3;
+            }
+            if (match) return str;
+            System.out.println("Formato no válido.");
         }
     }
 

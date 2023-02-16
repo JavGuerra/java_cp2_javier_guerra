@@ -6,8 +6,8 @@ Tema: Gestión de cuentas bancarias
 
 __Autor__: Javier Guerra  
 __Status__: Finalizado  
-__Versión__: 1.0.0  
-__Fecha__: 2023-02-15  
+__Versión__: 1.0.1  
+__Fecha__: 2023-02-16  
 
 La aplicación gestiona las cuentas bancarias (`Account`) de un banco (`Bank`).
 
@@ -25,7 +25,10 @@ Las entidades `Account`, `Address`, `Customer`, `Employee` y `Loan` tiene progra
 
 Se utiliza una estructura de datos como base de datos en memoria. Se han creado repositorios que proveen datos demo para cada una de los servicios. Estos repositorios pueden devolver una lista de datos de ejemplo, u opcionalmente, una lista de datos vacía.
 
-La aplicación ofrece un menú por consola cuyas opciones son implementadas en `AccountController`, y solicita datos al empleado que son leídos mediante la clase `Scanner` que es usada en la clase `ConsoleInput`. Esta clase gestiona excepciones.
+La aplicación ofrece un menú por consola cuyas opciones son implementadas en `AccountController`, y solicita datos al empleado que son leídos mediante la clase `Scanner` que es usada en `ConsoleInput`. Esta clase gestiona excepciones.
+
+**Bonus**: La clase `Validation` contiene métodos de validación de NIF, teléfono y correo electrónico que son usados por el método `getFormat` de la clase `ConsoleInput`.
+
 
 Opciones del menú:
 
@@ -57,10 +60,6 @@ Para la realización del ejercicio, se considera que:
 - Hay un único banco, y todos los servicios están asociados a él.  
 - Hay un único cliente por cuenta bancaria.
 - Existe al menos un empleado que gestiona las opciones de cuentas bancarias.  
-
-## TODO
-
-- Validar (`Validation`) los datos NIF del banco, de los clientes y los empleados, y sus cuentas de correo.
 
 ## Licencias
 

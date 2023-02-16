@@ -60,7 +60,7 @@ Para la realización del ejercicio, se considera que:
 
 ## TODO
 
-- Validar (`Validation`) los datos NIF del banco, DNI/NIE de los clientes y empleados, y sus cuentas de correo en los _setters_.
+- Validar (`Validation`) los datos NIF del banco, de los clientes y los empleados, y sus cuentas de correo en los _setters_.
 
 ## Licencias
 

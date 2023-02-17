@@ -25,11 +25,11 @@ public class LoanServiceImpl implements ILoanService {
     }
 
     @Override
-    public boolean loanExistById(Long accountId) {
+    public boolean loanExistById(long id) {
         boolean loanExist = false;
-        if (accountId != null && accountId > 0) {
+        if (id > 0) {
             for (Loan loan : loans.values()) {
-                if (loan.getAccountId().equals(accountId)) {
+                if (loan.getAccountId().equals(id)) {
                     loanExist = true;
                     break;
                 }
@@ -39,7 +39,7 @@ public class LoanServiceImpl implements ILoanService {
     }
 
     @Override
-    public boolean deleteLoan(Long id) {
+    public boolean deleteLoan(long id) {
         return loans.remove(id) != null;
     }
 }

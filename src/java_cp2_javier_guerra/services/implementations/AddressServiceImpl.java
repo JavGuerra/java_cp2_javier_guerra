@@ -21,7 +21,7 @@ public class AddressServiceImpl implements IAddressService {
     }
 
     @Override
-    public boolean deleteAddress(Long id) {
+    public boolean deleteAddress(long id) {
         return addresses.remove(id) != null;
     }
 }

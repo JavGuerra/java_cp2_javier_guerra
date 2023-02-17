@@ -25,7 +25,7 @@ public interface ICustomerService {
      * @param id del cliente.
      * @return opcionalmente, cliente o null.
      */
-    Optional<Customer> getCustomerById(Long id);
+    Optional<Customer> getCustomerById(long id);
 
     /**
      * Obtiene un cliente por su NIF.
@@ -39,5 +39,5 @@ public interface ICustomerService {
      * @param id del cliente.
      * @return true si se borró el cliente o false en caso contrario.
      */
-    boolean deleteCustomer(Long id);
+    boolean deleteCustomer(long id);
 }

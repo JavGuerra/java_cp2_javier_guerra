@@ -25,5 +25,5 @@ public interface IEmployeeService {
      * @param id del empleado.
      * @return true si se borró el empleado o false en caso contrario.
      */
-    boolean deleteEmployee(Long id);
+    boolean deleteEmployee(long id);
 }

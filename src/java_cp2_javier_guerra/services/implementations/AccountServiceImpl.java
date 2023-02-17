@@ -24,8 +24,9 @@ public class AccountServiceImpl implements IAccountService {
     }
 
     @Override
-    public boolean accountExistById(Long id) {
-        return accounts.containsKey(id);
+    public boolean accountExistById(long id) {
+        if (id > 0) return accounts.containsKey(id);
+        return false;
     }
 
     @Override
@@ -39,12 +40,13 @@ public class AccountServiceImpl implements IAccountService {
     }
 
     @Override
-    public Optional<Account> getAccountById(Long id) {
-        return Optional.ofNullable(accounts.get(id));
+    public Optional<Account> getAccountById(long id) {
+        if (id > 0) return Optional.ofNullable(accounts.get(id));
+        return Optional.empty();
     }
 
     @Override
-    public Optional<Account> getAccountByCustomerId(Long id) {
+    public Optional<Account> getAccountByCustomerId(long id) {
         if (!accounts.isEmpty() && id > 0) {
             for (Account account : accounts.values())
                 if (account.getIdCustomer().equals(id)) return Optional.of(account);
@@ -54,7 +56,7 @@ public class AccountServiceImpl implements IAccountService {
 
     @Override
     public List<Account> getAllAccountsByType(byte numType) {
-        List<Account> listAccounts =  new ArrayList<>();
+        List<Account> listAccounts = new ArrayList<>();
         if (!accounts.isEmpty() && numType >= 0 && numType <= AccountType.values().length -1) {
             AccountType type = AccountType.values()[numType];
             for (Account account : accounts.values())
@@ -65,7 +67,7 @@ public class AccountServiceImpl implements IAccountService {
 
     @Override
     public List<Account> getAllAccountsByCurrency(byte numType) {
-        List<Account> listAccounts =  new ArrayList<>();
+        List<Account> listAccounts = new ArrayList<>();
         if (!accounts.isEmpty() && numType >= 0 && numType <= CurrencyType.values().length -1) {
             CurrencyType type = CurrencyType.values()[numType];
             for (Account account : accounts.values())
@@ -74,14 +76,13 @@ public class AccountServiceImpl implements IAccountService {
         return listAccounts;
     }
 
-    public boolean currencyExistInAccount(Long id, byte numType) {
+    public boolean currencyExistInAccount(long id, byte numType) {
         boolean thereIsCurrency = false;
         if (!accounts.isEmpty() && id > 0 && numType >= 0 && numType <= CurrencyType.values().length - 1) {
             CurrencyType currencyType =  CurrencyType.values()[numType];
-            Optional<Account> optAccount = getAccountById(id);
-            if (optAccount.isPresent()) {
-                Account account = optAccount.get();
-                for (CurrencyType type : account.getCurrencies()) {
+            Optional<Account> account = getAccountById(id);
+            if (account.isPresent()) {
+                for (CurrencyType type : account.get().getCurrencies()) {
                     if (type == currencyType) {
                         thereIsCurrency = true;
                         break;
@@ -106,9 +107,9 @@ public class AccountServiceImpl implements IAccountService {
     }
 
     @Override
-    public boolean incrementOrDecrementAccountAmount(Long id, Double amount, boolean mode) {
+    public boolean incrementOrDecrementAccountAmount(long id, double amount, boolean mode) {
         boolean completed = false;
-        if (!accounts.isEmpty() && amount > 0) {
+        if (!accounts.isEmpty() && id > 0 && amount > 0) {
             Optional<Account> optAccount = getAccountById(id);
 
             if (optAccount.isPresent()) {
@@ -126,9 +127,9 @@ public class AccountServiceImpl implements IAccountService {
     }
 
     @Override
-    public boolean transferAccountAmount(Long id1, Long id2, Double amount) {
+    public boolean transferAccountAmount(long id1, long id2, double amount) {
         boolean completed = false;
-        if (!accounts.isEmpty() && amount > 0) {
+        if (!accounts.isEmpty() && id1 > 0 && id2 > 0 && amount > 0) {
             Optional<Account> account1 = getAccountById(id1);
             Optional<Account> account2 = getAccountById(id1);
             if (account1.isPresent() && account2.isPresent() && account1.get().getAmount() >= amount)
@@ -139,7 +140,7 @@ public class AccountServiceImpl implements IAccountService {
     }
 
     @Override
-    public boolean deleteAccount(Long id) {
+    public boolean deleteAccount(long id) {
         return accounts.remove(id) != null;
     }
 }

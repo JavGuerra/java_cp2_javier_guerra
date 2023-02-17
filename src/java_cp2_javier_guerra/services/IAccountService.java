@@ -20,7 +20,7 @@ public interface IAccountService {
      * @param id de la cuenta.
      * @return existe/true o no/false.
      */
-    boolean accountExistById(Long id);
+    boolean accountExistById(long id);
 
     /**
      * Añade una cuenta bancaria a la lista de cuentas.
@@ -40,14 +40,14 @@ public interface IAccountService {
      * @param id identificador de la cuenta bancaria.
      * @return opcionalmente, la cuenta bancaria.
      */
-    Optional<Account> getAccountById(Long id);
+    Optional<Account> getAccountById(long id);
 
     /**
      * Obtiene una cuenta bancaria por el id del cliente.
      * @param id de la cuenta.
      * @return opcionalmente, la cuenta bancaria.
      */
-    Optional<Account> getAccountByCustomerId(Long id);
+    Optional<Account> getAccountByCustomerId(long id);
 
     /**
      * Obtiene una lista de cuentas bancarias del mismo tipo (analógico | digital).
@@ -69,7 +69,7 @@ public interface IAccountService {
      * @param numType tipo de moneda.
      * @return true si soporta la moneda, false en caso contrario.
      */
-    boolean currencyExistInAccount(Long id, byte numType);
+    boolean currencyExistInAccount(long id, byte numType);
 
     /**
      * Obtiene un mapa cuya clave es el tipo de cuenta, y cuyo valor es una lista (set) de cuentas de ese tipo.
@@ -84,7 +84,7 @@ public interface IAccountService {
      * @param mode true ingreso, false retiro.
      * @return true si se ingresó/retiró correctamente el dinero o false si hubo un problema.
      */
-    boolean incrementOrDecrementAccountAmount(Long id, Double amount, boolean mode);
+    boolean incrementOrDecrementAccountAmount(long id, double amount, boolean mode);
 
     /**
      * Transfiere saldo entre dos cuentas bancarias si es posible.
@@ -93,12 +93,12 @@ public interface IAccountService {
      * @param amount cantidad a transferir.
      * @return true si se pudo realizar la operación, false en caso contrario.
      */
-    boolean transferAccountAmount(Long id1, Long id2, Double amount);
+    boolean transferAccountAmount(long id1, long id2, double amount);
 
     /**
      * Borra una cuenta bancaria.
      * @param id de la cuenta a borrar.
      * @return true si se pudo realizar la operación, false en caso contrario.
      */
-    boolean deleteAccount(Long id);
+    boolean deleteAccount(long id);
 }

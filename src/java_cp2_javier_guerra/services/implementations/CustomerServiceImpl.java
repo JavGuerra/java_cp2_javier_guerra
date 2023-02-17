@@ -21,8 +21,8 @@ public class CustomerServiceImpl implements ICustomerService {
     }
 
     @Override
-    public Optional<Customer> getCustomerById(Long id) {
-        if (id != null && id >= 0) return Optional.ofNullable(customers.get(id));
+    public Optional<Customer> getCustomerById(long id) {
+        if (id >= 0) return Optional.ofNullable(customers.get(id));
         return Optional.empty();
     }
 
@@ -36,7 +36,7 @@ public class CustomerServiceImpl implements ICustomerService {
     }
 
     @Override
-    public boolean deleteCustomer(Long id) {
+    public boolean deleteCustomer(long id) {
         return customers.remove(id) != null;
     }
 }

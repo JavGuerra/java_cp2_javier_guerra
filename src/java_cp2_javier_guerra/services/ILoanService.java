@@ -25,12 +25,12 @@ public interface ILoanService {
      * @param accountId de la cuenta asociada al préstamo.
      * @return true si existe el préstamo, false en caso contrario.
      */
-    boolean loanExistById(Long accountId);
+    boolean loanExistById(long accountId);
 
     /**
      * Borra un préstamo de la lista.
      * @param id del préstamo.
      * @return true si se borró el préstamo o false en caso contrario.
      */
-    boolean deleteLoan(Long id);
+    boolean deleteLoan(long id);
 }

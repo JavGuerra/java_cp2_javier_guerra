@@ -21,7 +21,7 @@ public class EmployeeServiceImpl implements IEmployeeService {
     }
 
     @Override
-    public boolean deleteEmployee(Long id) {
+    public boolean deleteEmployee(long id) {
         return employees.remove(id) != null;
     }
 }

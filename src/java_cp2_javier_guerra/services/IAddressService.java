@@ -25,5 +25,5 @@ public interface IAddressService {
      * @param id de la dirección a borrar.
      * @return true si se borró o false en caso contrario.
      */
-    boolean deleteAddress(Long id);
+    boolean deleteAddress(long id);
 }

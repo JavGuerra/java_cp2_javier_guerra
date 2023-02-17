@@ -59,7 +59,6 @@ public class Customer {
         this.addressId = addressId;
     }
 
-
     public String getPhone() {
         return phone;
     }

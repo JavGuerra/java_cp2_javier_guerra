@@ -147,7 +147,7 @@ public abstract class ConsoleInput {
     public static String getFormat(String message, String type) {
         if (message == null) message = "";
         type = (type == null) ? "" : type.toLowerCase();
-        boolean match = false;
+        boolean match;
         String str;
         while(true) {
             System.out.print(message);

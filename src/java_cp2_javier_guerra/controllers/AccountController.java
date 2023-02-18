@@ -193,7 +193,7 @@ public abstract class AccountController {
      * Incrementa o decrementa el saldo de una cuenta bancaria con un determinado id de cuenta.
      * @param mode true ingresar, false retirar.
      */
-    public static void incrementOrDecrementAccountBalanceById(Boolean mode) {
+    public static void incrementOrDecrementAccountBalanceById(boolean mode) {
         title((mode ? "Incrementar el" : "Retirar") + " saldo de una cuenta por su id");
 
         if (thereAreAccounts()) {

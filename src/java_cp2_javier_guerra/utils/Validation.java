@@ -1,5 +1,9 @@
 package java_cp2_javier_guerra.utils;
 
+/**
+ * Validaciones de tipos de datos de entrada: NIF, teléfono y correo electrónico.
+ * @author Javier Guerra
+ */
 public abstract class Validation {
 
     /**

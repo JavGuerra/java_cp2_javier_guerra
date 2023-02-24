@@ -36,8 +36,7 @@ public final class CustomerRepository {
             var customer2 = new Customer(2L, "Cliente 2", "12345678B", 2L, "+34 123 456 002", "cliente2@email.com");
             var customer3 = new Customer(3L, "Cliente 3", "12345678C", 3L, "+34 123 456 003", "cliente3@email.com");
 
-            return new HashMap<>
-                    (Map.of(customer1.getId(), customer1, customer2.getId(), customer2, customer3.getId(), customer3));
+            customers.putAll(Map.of(customer1.getId(), customer1, customer2.getId(), customer2, customer3.getId(), customer3));
         }
 
         return customers;

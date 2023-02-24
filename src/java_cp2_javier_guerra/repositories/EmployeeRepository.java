@@ -34,7 +34,7 @@ public final class EmployeeRepository {
         if (data) {
             var employee1 = new Employee(1L, "Empleado 1", "87654321A", 2L, "+34 123 456 000", "empleado1@banco.es");
 
-            employees.putAll(Map.of(employee1.getId(), employee1));
+            employees.put(employee1.getId(), employee1);
         }
 
         return employees;

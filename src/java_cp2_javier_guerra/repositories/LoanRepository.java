@@ -34,7 +34,7 @@ public class LoanRepository {
         if (data) {
             var loan1 = new Loan(1L, 1L, 1L, 5000d, 5);
 
-            loans.putAll(Map.of(1L, loan1));
+            loans.put(1L, loan1);
         }
 
         return loans;

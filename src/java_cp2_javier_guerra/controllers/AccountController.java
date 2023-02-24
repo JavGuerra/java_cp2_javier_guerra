@@ -14,7 +14,7 @@ import static java_cp2_javier_guerra.utils.ConsoleInput.*;
 /**
  * Opciones del menú de cuentas bancarias de la aplicación
  */
-public abstract class AccountController {
+public class AccountController {
 
     private static final IAccountService accountService = new AccountServiceImpl();
     private static final ICustomerService customerService = new CustomerServiceImpl();
